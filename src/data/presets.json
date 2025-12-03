@@ -68,27 +68,27 @@
       "businessContext": "Financial transaction data import for cash receipt processing.",
       "keyDefinitions": [
         {
-          "keyName": "TransactionNumber",
+          "keyName": "Transaction Number",
           "keyDescription": "Unique number for the transaction record"
         },
         {
-          "keyName": "DepositNumber",
+          "keyName": "Deposit Number",
           "keyDescription": "Reference number for the associated bank deposit"
         },
         {
-          "keyName": "ReceiptNumber",
+          "keyName": "Receipt Number",
           "keyDescription": "Sequential receipt number for the cash receipt"
         },
         {
-          "keyName": "BankCode",
+          "keyName": "Bank Code",
           "keyDescription": "Bank institution code (e.g., BONZ, BOA, BOT, BOJ)"
         },
         {
-          "keyName": "PayorType",
+          "keyName": "Payor Type",
           "keyDescription": "Category of the payor: Client, Vendor, Employee, or Misc"
         },
         {
-          "keyName": "PayorNumber",
+          "keyName": "Payor Number",
           "keyDescription": "Unique identifier for the payor entity"
         },
         {
@@ -96,7 +96,7 @@
           "keyDescription": "Transaction amount in decimal format (e.g., 123.45)"
         },
         {
-          "keyName": "DateModified",
+          "keyName": "Date Modified",
           "keyDescription": "Date when the transaction was last modified (various date formats supported)"
         }
       ]
