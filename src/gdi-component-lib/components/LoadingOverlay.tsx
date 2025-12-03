@@ -20,7 +20,7 @@ export default function LoadingOverlay({
   progress,
   onCancel,
 }: LoadingOverlayProps) {
-  const percent = progress?.percent ?? undefined;
+  const percent = progress?.percentComplete ?? undefined;
   const label = progress?.phase ?? 'loading';
   return (
     <Box
