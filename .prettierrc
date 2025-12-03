@@ -1,0 +1,13 @@
+# This file is controlled and updated via PRs by the Automation repo and should not be edited manually.
+# This file can be edited in the Automation repo here: https://github.com/aderant/automation/tree/main/frontend
+# This file can be edited in certain cases if its needed, and a PR will be opened when upstream changes are made.
+
+singleQuote: true
+printWidth: 90
+proseWrap: "always"
+tabWidth: 2
+endOfLine: "auto"
+trailingComma: "all"
+bracketSpacing: true
+bracketSameLine: false
+semi: true

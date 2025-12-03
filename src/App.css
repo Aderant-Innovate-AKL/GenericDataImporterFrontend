@@ -1,0 +1,18 @@
+.logo {
+  height: 15em;
+  padding: 0 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.coming-soon {
+  color: #888;
+}
+
+.home {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
