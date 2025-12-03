@@ -1,27 +1,109 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { PlatformPageTitleBar } from '@aderant/stridyn-foundation';
-import CodeIcon from '@mui/icons-material/Code';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Box from '@mui/material/Box';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Stepper from '@mui/material/Stepper';
 import Tab from '@mui/material/Tab';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import Tabs from '@mui/material/Tabs';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [navTab, setNavTab] = useState(0);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [textValue, setTextValue] = useState('');
+  const [tableData] = useState<Array<Record<string, string>>>([]);
+  const [keyDefinitions, setKeyDefinitions] = useState<
+    Array<{ keyName: string; keyDescription: string }>
+  >([]);
+  const [pageTitle, setPageTitle] = useState('Home');
+  const [fileProcessingStatus, setFileProcessingStatus] = useState('');
+  const filePollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handlePresetClick = (presetName: string) => {
+    setPageTitle(`${presetName} Data Importer`);
+  };
+
+  const handleAddKeyRow = () => {
+    setKeyDefinitions([...keyDefinitions, { keyName: '', keyDescription: '' }]);
+  };
+
+  const handleKeyChange = (
+    index: number,
+    field: 'keyName' | 'keyDescription',
+    value: string,
+  ) => {
+    const updatedKeys = [...keyDefinitions];
+    updatedKeys[index][field] = value;
+    setKeyDefinitions(updatedKeys);
+  };
+
+  const handleRemoveKeyRow = (index: number) => {
+    const updatedKeys = keyDefinitions.filter((_, i) => i !== index);
+    setKeyDefinitions(updatedKeys);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log('File selected:', file.name);
+      setSelectedFile(file);
+      // Start polling for file processing status
+      updateFileProcessingStatus();
+    }
+  };
+
+  const updateFileProcessingStatus = () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    setFileProcessingStatus(`Processing...\nLast polled at ${timeString}`);
+  };
+
+  // File processing polling effect
+  useEffect(() => {
+    if (selectedFile) {
+      // Update immediately when file is selected
+      updateFileProcessingStatus();
+
+      // Set up interval to update every 3 seconds
+      filePollingIntervalRef.current = setInterval(() => {
+        updateFileProcessingStatus();
+      }, 3000);
+    } else {
+      // Clear interval when no file is selected
+      if (filePollingIntervalRef.current) {
+        clearInterval(filePollingIntervalRef.current);
+        filePollingIntervalRef.current = null;
+      }
+      setFileProcessingStatus('');
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (filePollingIntervalRef.current) {
+        clearInterval(filePollingIntervalRef.current);
+      }
+    };
+  }, [selectedFile]);
 
   return (
     <div data-testid="home-page">
-      <PlatformPageTitleBar title="Home" />
+      <PlatformPageTitleBar title={pageTitle} />
       <Box
         sx={{
           maxWidth: 1200,
@@ -30,98 +112,438 @@ export default function Home() {
         }}
         data-testid="home-page-container"
       >
-        {/* Hero Section */}
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
-            Welcome to Hackathon UI Template
-          </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 3 }}>
-            Build fast with React 19, TypeScript, Vite, and Material UI
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-            <Button
-              variant="contained"
-              size="large"
-              startIcon={<RocketLaunchIcon />}
-              href="https://github.com/aderant/platform-design"
-              target="_blank"
-            >
-              Start Building
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              startIcon={<CodeIcon />}
-              href="https://crispy-adventure-zwnv2z4.pages.github.io/?path=/docs/ask-maddi-askmaddi--docs"
-              target="_blank"
-            >
-              View Components
-            </Button>
-          </Box>
-        </Box>
-
         {/* Navigation Examples Section */}
         <Card sx={{ mb: 4 }}>
           <CardContent>
-            <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-              Navigation Examples
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              Common navigation patterns you can use
-            </Typography>
-
-            {/* Tabs Example */}
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="subtitle2" gutterBottom>
-                Tabs Navigation
-              </Typography>
-              <Tabs value={activeTab} onChange={(_, val) => setActiveTab(val)}>
-                <Tab label="Overview" />
-                <Tab label="Features" />
-                <Tab label="Settings" />
+            {/* Tabs with Presets */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                mb: 2,
+              }}
+            >
+              <Tabs value={navTab} onChange={(_, val) => setNavTab(val)}>
+                <Tab label="Config" />
+                <Tab label="Mock App" />
               </Tabs>
-              <Box sx={{ p: 2, bgcolor: 'grey.50', borderRadius: 1, mt: 1 }}>
-                <Typography variant="body2">
-                  {activeTab === 0 && 'Overview content goes here'}
-                  {activeTab === 1 && 'Features content goes here'}
-                  {activeTab === 2 && 'Settings content goes here'}
+
+              {/* Presets Section */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  Presets:
                 </Typography>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handlePresetClick('Preset 1')}
+                >
+                  Preset 1
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handlePresetClick('Preset 2')}
+                >
+                  Preset 2
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handlePresetClick('Preset 3')}
+                >
+                  Preset 3
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handlePresetClick('Custom')}
+                >
+                  Custom
+                </Button>
               </Box>
             </Box>
 
-            {/* Breadcrumbs Example */}
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="subtitle2" gutterBottom>
-                Breadcrumbs
-              </Typography>
-              <Breadcrumbs>
-                <Link underline="hover" color="inherit" href="/">
-                  Home
-                </Link>
-                <Link underline="hover" color="inherit" href="/projects">
-                  Projects
-                </Link>
-                <Typography color="text.primary">Current Project</Typography>
-              </Breadcrumbs>
-            </Box>
+            {/* Parser Tab Content */}
+            {navTab === 0 && (
+              <Box sx={{ display: 'flex', gap: 2, mb: 4, width: '100%' }}>
+                {/* Left Column - Keys Box */}
+                <Box
+                  sx={{
+                    flex: '0 0 25%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    height: 400,
+                  }}
+                >
+                  {/* Keys Box */}
+                  <Box
+                    sx={{
+                      flex: 1,
+                      bgcolor: 'info.main',
+                      borderRadius: 2,
+                      p: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 2,
+                      position: 'relative',
+                    }}
+                  >
+                    {/* Help Icon */}
+                    <Tooltip
+                      title="Enter some business context to aid the AI parser in interpreting the input data."
+                      arrow
+                    >
+                      <IconButton
+                        sx={{
+                          position: 'absolute',
+                          top: 4,
+                          right: 4,
+                          color: 'white',
+                        }}
+                        size="small"
+                      >
+                        <HelpOutlineIcon />
+                      </IconButton>
+                    </Tooltip>
 
-            {/* Stepper Example */}
-            <Box>
-              <Typography variant="subtitle2" gutterBottom>
-                Stepper (Workflow)
-              </Typography>
-              <Stepper activeStep={1} sx={{ mt: 2 }}>
-                <Step>
-                  <StepLabel>Setup</StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel>Configure</StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel>Deploy</StepLabel>
-                </Step>
-              </Stepper>
-            </Box>
+                    <Typography
+                      variant="h6"
+                      color="primary.contrastText"
+                      sx={{ textAlign: 'center' }}
+                    >
+                      Business Context
+                    </Typography>
+
+                    {/* TextField and Confirm Button */}
+                    <TextField
+                      value={textValue}
+                      onChange={(e) => setTextValue(e.target.value)}
+                      placeholder="Enter text"
+                      variant="outlined"
+                      multiline
+                      fullWidth
+                      sx={{
+                        flex: 1,
+                        bgcolor: 'white',
+                        borderRadius: 1,
+                        '& .MuiInputBase-root': {
+                          height: '100%',
+                          alignItems: 'flex-start',
+                        },
+                      }}
+                    />
+                  </Box>
+                </Box>
+
+                {/* Square Box */}
+                <Box
+                  sx={{
+                    flex: '1 1 auto',
+                    height: 400,
+                    bgcolor: 'info.main',
+                    borderRadius: 2,
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    gap: 2,
+                  }}
+                >
+                  {/* Help Icon */}
+                  <Tooltip
+                    title="Enter the labels and descriptions of the information to find."
+                    arrow
+                  >
+                    <IconButton
+                      sx={{
+                        position: 'absolute',
+                        top: 4,
+                        right: 4,
+                        color: 'white',
+                      }}
+                      size="small"
+                    >
+                      <HelpOutlineIcon />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 1,
+                    }}
+                  >
+                    <Typography variant="h6" color="secondary.contrastText">
+                      Key Definitions
+                    </Typography>
+                  </Box>
+
+                  {/* Table for Key Definitions */}
+                  <Box
+                    sx={{
+                      flex: 1,
+                      borderRadius: 0,
+                      overflow: 'auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <TableContainer sx={{ flex: 1 }}>
+                      <Table size="small" sx={{ bgcolor: 'white', height: '100%' }}>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell sx={{ fontWeight: 600, width: '25%' }}>
+                              Key Name
+                            </TableCell>
+                            <TableCell sx={{ fontWeight: 600, width: '75%' }}>
+                              Key Description
+                            </TableCell>
+                            <TableCell sx={{ width: 50 }}></TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {keyDefinitions.map((row, index) => (
+                            <TableRow key={index} sx={{ height: 20 }}>
+                              <TableCell>
+                                <TextField
+                                  value={row.keyName}
+                                  onChange={(e) =>
+                                    handleKeyChange(index, 'keyName', e.target.value)
+                                  }
+                                  placeholder="Enter key name"
+                                  variant="standard"
+                                  fullWidth
+                                  size="small"
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <TextField
+                                  value={row.keyDescription}
+                                  onChange={(e) =>
+                                    handleKeyChange(
+                                      index,
+                                      'keyDescription',
+                                      e.target.value,
+                                    )
+                                  }
+                                  placeholder="Enter key description"
+                                  variant="standard"
+                                  fullWidth
+                                  size="small"
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <IconButton
+                                  size="small"
+                                  onClick={() => handleRemoveKeyRow(index)}
+                                  sx={{ color: 'error.main' }}
+                                >
+                                  <DeleteIcon fontSize="small" />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Box>
+
+                  {/* Add Row Button */}
+                  <Button
+                    variant="contained"
+                    startIcon={<AddIcon />}
+                    onClick={handleAddKeyRow}
+                    sx={{
+                      bgcolor: 'white',
+                      color: 'secondary.main',
+                      '&:hover': {
+                        bgcolor: 'grey.100',
+                      },
+                    }}
+                  >
+                    Add Row
+                  </Button>
+                </Box>
+              </Box>
+            )}
+
+            {/* Mock App Tab Content */}
+            {navTab === 1 && (
+              <Box sx={{ display: 'flex', gap: 2, mb: 4, width: '100%' }}>
+                {/* Document Upload Box - Left Side */}
+                <Box
+                  sx={{
+                    flex: '0 0 25%',
+                    bgcolor: 'info.main',
+                    borderRadius: 2,
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    position: 'relative',
+                    height: 400,
+                  }}
+                >
+                  {/* Help Icon */}
+                  <Tooltip title="Upload a file to parse." arrow>
+                    <IconButton
+                      sx={{
+                        position: 'absolute',
+                        top: 4,
+                        right: 4,
+                        color: 'white',
+                      }}
+                      size="small"
+                    >
+                      <HelpOutlineIcon />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Typography
+                    variant="h6"
+                    color="primary.contrastText"
+                    sx={{ textAlign: 'center' }}
+                  >
+                    Document Upload
+                  </Typography>
+
+                  <TextField
+                    value={selectedFile?.name || ''}
+                    placeholder="No file selected"
+                    variant="outlined"
+                    fullWidth
+                    disabled
+                    sx={{
+                      bgcolor: 'white',
+                      borderRadius: 1,
+                      '& .MuiInputBase-input.Mui-disabled': {
+                        WebkitTextFillColor: 'rgba(0, 0, 0, 0.87)',
+                      },
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    component="label"
+                    fullWidth
+                    sx={{
+                      bgcolor: 'white',
+                      color: 'primary.main',
+                      '&:hover': {
+                        bgcolor: 'grey.100',
+                      },
+                    }}
+                  >
+                    Choose File
+                    <input type="file" hidden onChange={handleFileChange} />
+                  </Button>
+
+                  {/* Spacer to push content to bottom */}
+                  <Box sx={{ flex: 1 }} />
+
+                  {selectedFile && (
+                    <>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          flex: 1,
+                        }}
+                      >
+                        <CircularProgress size={80} style={{ color: 'white' }} />
+                      </Box>
+                      <Typography
+                        variant="body2"
+                        color="primary.contrastText"
+                        sx={{
+                          textAlign: 'center',
+                          whiteSpace: 'pre-line',
+                        }}
+                      >
+                        {fileProcessingStatus}
+                      </Typography>
+                    </>
+                  )}
+                </Box>
+
+                {/* Table Section - Right Side */}
+                <Box
+                  sx={{
+                    flex: '0 0 75%',
+                    bgcolor: 'info.main',
+                    borderRadius: 2,
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    position: 'relative',
+                  }}
+                >
+                  {/* Help Icon */}
+                  <Tooltip title="View the parsed data from the document." arrow>
+                    <IconButton
+                      sx={{
+                        position: 'absolute',
+                        top: 4,
+                        right: 4,
+                        color: 'white',
+                      }}
+                      size="small"
+                    >
+                      <HelpOutlineIcon />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Typography
+                    variant="h6"
+                    color="primary.contrastText"
+                    sx={{ textAlign: 'center' }}
+                  >
+                    Parsed Data
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      flex: 1,
+                      borderRadius: 0,
+                      overflow: 'auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <TableContainer sx={{ flex: 1 }}>
+                      <Table size="small" sx={{ bgcolor: 'white', height: '100%' }}>
+                        <TableHead>
+                          <TableRow>
+                            {keyDefinitions.map((keyDef, index) => (
+                              <TableCell key={index} sx={{ fontWeight: 600 }}>
+                                {keyDef.keyName || `Column ${index + 1}`}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {tableData.map((row, rowIndex) => (
+                            <TableRow key={rowIndex} sx={{ height: 20 }}>
+                              {keyDefinitions.map((keyDef, colIndex) => (
+                                <TableCell key={colIndex}>
+                                  {row[keyDef.keyName] || ''}
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Box>
+                </Box>
+              </Box>
+            )}
           </CardContent>
         </Card>
 
