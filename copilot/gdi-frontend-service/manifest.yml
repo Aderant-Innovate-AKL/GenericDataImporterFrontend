@@ -20,6 +20,7 @@ image:
     dockerfile: Dockerfile
     args:
       GITHUB_TOKEN: ${GHCR_READ_TOKEN} # Build-time argument from env variable
+      GHCR_READ_TOKEN: ${GHCR_READ_TOKEN} # Build-time argument from env variable
   port: 80
 
 cpu: 256 # Number of CPU units for the task.
