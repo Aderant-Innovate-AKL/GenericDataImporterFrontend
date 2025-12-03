@@ -201,11 +201,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "copilot svc deploy --app '$APP' --env '${ENV}' --name '${SVC}' --build-arg GITHUB_TOKEN='${GHCR_READ_TOKEN}'"
+          echo "copilot svc deploy --app '$APP' --env '${ENV}' --name '${SVC}'"
           copilot svc deploy \
             --app "$APP" \
             --env "$ENV" \
-            --name "$SVC" \
-            --build-arg GITHUB_TOKEN="${GHCR_READ_TOKEN}"
+            --name "$SVC"
         env:
           GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
