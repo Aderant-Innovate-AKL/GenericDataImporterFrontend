@@ -1,0 +1,12 @@
+Account Number,Customer Name,Contact Details,Address,Subscription Plan,Payment Method,VAT/Tax ID,Notes
+ACC-UK-2024-0145,Margaret Thompson,m.thompson@britishtech.co.uk | +44 20 7946 0958,123 Oxford Street - London - UK - W1D 2HG,Professional - £299/mo - Annual,Credit Card ending 4521,GB123456789,Referral from ACC-UK-2023-0089
+ACC-DE-2024-0067,Hans Mueller,h.mueller@deutschetech.de | +49 30 12345678,Alexanderplatz 5 - Berlin - Germany - 10178,Enterprise - €899/mo - Monthly,Bank Transfer SEPA,DE987654321,Conference lead - Tech Berlin 2024
+ACC-FR-2023-0234,Sophie Dubois,sophie.d@frenchstartup.fr | +33 1 42 86 82 00,15 Avenue des Champs-Élysées - Paris - France - 75008,Starter - €99/mo - Annual,PayPal,FR555888999,Free trial converted
+ACC-AU-2024-0098,James Wilson,j.wilson@aussietech.com.au | +61 2 9876 5432,250 George Street - Sydney - NSW - 2000,Professional - AUD 450/mo - Monthly,Credit Card ending 7890,ABN 12345678901,Partner referral - TechSydney
+ACC-CA-2024-0176,Emily Zhang,emily.z@cantech.ca | +1 416 555 0123,100 King Street West - Toronto - ON - M5X 1A9,Enterprise - CAD 1200/mo - Annual,Wire Transfer,123456789 RC0001,Trade show - CanTech Summit
+ACC-JP-2024-0045,Yuki Tanaka,y.tanaka@tokyotech.co.jp | +81 3-1234-5678,1-1-1 Shibuya - Tokyo - Japan - 150-0002,Professional - ¥45000/mo - Monthly,Credit Card ending 2468,JP-1234567890,Direct outreach - expansion
+ACC-SG-2023-0289,Raj Patel,raj.patel@singaporetech.sg | +65 6123 4567,1 Marina Boulevard - Singapore - 018989,Enterprise - SGD 1500/mo - Annual,Bank Transfer,SG-123456789A,Existing customer upgrade
+ACC-NL-2024-0134,Anna van der Berg,a.vandenberg@dutchtech.nl | +31 20 123 4567,Herengracht 450 - Amsterdam - Netherlands - 1017 CA,Starter - €149/mo - Monthly,iDEAL,NL123456789B01,Website signup - organic
+ACC-BR-2024-0091,Carlos Silva,carlos.silva@braziltech.com.br | +55 11 3456-7890,Avenida Paulista 1000 - São Paulo - SP - 01310-100,Professional - BRL 850/mo - Annual,Boleto Bancário,12.345.678/0001-90,Partnership - Brasil Tech
+ACC-IN-2024-0203,Priya Sharma,p.sharma@indiatech.in | +91 22 1234 5678,Nariman Point - Mumbai - Maharashtra - 400021,Enterprise - ₹75000/mo - Monthly,UPI Transfer,GSTIN: 27AABCU9603R1ZM,Conference - India Tech Forum
+

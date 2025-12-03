@@ -1,0 +1,12 @@
+Customer ID,Full Name,Email,Phone,Company,Account Type,Status,Registration Date,Location
+C-001,John Smith,john.smith@acme.com,+1-212-555-0101,Acme Corporation,Premium,Active,2024-01-15,New York
+C-002,Jane Doe,jane.d@techstart.io,+1-310-555-0202,TechStart Inc,Standard,Active,2024-02-20,Los Angeles
+C-003,Bob Johnson,bob.j@widgets.com,312-555-0303,Widgets Ltd,Basic,Inactive,2023-11-05,Chicago
+C-004,Maria Garcia,m.garcia@globaltech.net,(305) 555-0404,GlobalTech Solutions,Enterprise,Active,2024-03-10,Miami
+C-005,David Chen,dchen@innovate.com,+1 206 555 0505,Innovate Solutions,Premium,Active,2024-04-01,Seattle
+C-006,Sarah Williams,s.williams@enterprise.co,617.555.0606,Enterprise Co,Enterprise,Active,2023-06-15,Boston
+C-007,Michael Brown,mike.b@startup.io,214-555-0707,Startup Inc,Basic,Pending,2024-07-20,Dallas
+C-008,Emily Davis,emily.davis@megacorp.com,+1-212-555-0808,MegaCorp International,Premium,Active,2024-05-12,New York
+C-009,Alex Kim,alex@techhub.com,(415) 555-0909,TechHub,Standard,Active,2023-09-01,San Francisco
+C-010,Lisa Martinez,lisa.m@solutions.net,+1 404 555 1010,Solutions Network,Premium,Active,2024-08-18,Atlanta
+

@@ -1,0 +1,12 @@
+Customer Reference,Contact Info,Region,Status,Notes
+CUST-2024-NYC-GOLD-001,John Smith | john.smith@acme.com | +1-212-555-0101 | Acme Corp,Northeast,Active,VIP customer since 2020
+CUST-2024-LA-SILVER-002,Jane Doe | jane.doe@techstart.io | +1-310-555-0202 | TechStart Inc,West Coast,Active,Referred by CUST-2024-NYC-GOLD-001
+CUST-2023-CHI-BRONZE-003,Bob Johnson | bob.j@widgets.com | +1-312-555-0303 | Widgets Ltd,Midwest,Inactive,Payment issues
+CUST-2024-MIA-GOLD-004,Maria Garcia | m.garcia@globaltech.net | +1-305-555-0404 | GlobalTech,Southeast,Active,High volume purchaser
+CUST-2024-SEA-SILVER-005,David Chen | dchen@innovate.com | +1-206-555-0505 | Innovate Solutions,Northwest,Active,New customer onboarding
+CUST-2023-BOS-PLATINUM-006,Sarah Williams | s.williams@enterprise.co | +1-617-555-0606 | Enterprise Co,Northeast,Active,Enterprise tier - custom pricing
+CUST-2024-DAL-BRONZE-007,Michael Brown | mike.b@startup.io | +1-214-555-0707 | Startup Inc,Southwest,Pending,Trial period
+CUST-2024-NYC-SILVER-008,Emily Davis | emily.davis@megacorp.com | +1-212-555-0808 | MegaCorp,Northeast,Active,Multiple locations
+CUST-2023-SF-GOLD-009,Alex Kim | alex@techhub.com | +1-415-555-0909 | TechHub,West Coast,Active,Partner program
+CUST-2024-ATL-BRONZE-010,Lisa Martinez | lisa.m@solutions.net | +1-404-555-1010 | Solutions Network,Southeast,Active,Standard tier
+
