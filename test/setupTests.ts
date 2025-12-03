@@ -10,6 +10,17 @@ expect.extend(matchers);
 const licenseKey = process.env.UI_MUI_X_LICENSE_KEY || 'invalid-license-key';
 LicenseInfo.setLicenseKey(licenseKey);
 
+// Polyfill Blob.arrayBuffer for test environment (jsdom doesn't provide it)
+if (!Blob.prototype.arrayBuffer) {
+  Blob.prototype.arrayBuffer = async function () {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as ArrayBuffer);
+      reader.readAsArrayBuffer(this);
+    });
+  };
+}
+
 // Mock useUser hook globally for all tests
 vi.mock('src/contexts', () => ({
   useUser: vi.fn(() => ({

@@ -11,6 +11,9 @@ WORKDIR /app
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
+ARG GHCR_READ_TOKEN
+ENV GHCR_READ_TOKEN=${GHCR_READ_TOKEN}
+
 # Copy package files and npmrc
 COPY package.json pnpm-lock.yaml .npmrc ./
 
