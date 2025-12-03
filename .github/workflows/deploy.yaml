@@ -38,6 +38,14 @@ jobs:
           copilot --version
           jq --version
 
+      - name: Initialize Copilot app if missing
+        shell: bash
+        run: |
+          if [[ ! -f copilot/.workspace ]]; then
+            echo "copilot/.workspace not found. Initializing app..."
+            copilot app init my-app || true
+          fi
+
       - name: Read app name from copilot/.workspace
         id: app
         shell: bash
