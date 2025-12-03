@@ -517,7 +517,13 @@ export default function Home() {
                         <TableHead>
                           <TableRow>
                             {keyDefinitions.map((keyDef, index) => (
-                              <TableCell key={index} sx={{ fontWeight: 600 }}>
+                              <TableCell
+                                key={index}
+                                sx={{
+                                  fontWeight: 600,
+                                  verticalAlign: 'bottom',
+                                }}
+                              >
                                 {keyDef.keyName || `Column ${index + 1}`}
                               </TableCell>
                             ))}
