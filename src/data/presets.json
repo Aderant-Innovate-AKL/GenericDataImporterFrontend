@@ -1,0 +1,111 @@
+{
+  "presets": [
+    {
+      "id": "preset1",
+      "name": "Preset 1",
+      "businessContext": "This is the Preset 1 business context information. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sagittis mauris, imperdiet consequat libero. Aenean consectetur id arcu quis semper. Nunc a urna nibh.",
+      "keyDefinitions": [
+        {
+          "keyName": "P1Key1",
+          "keyDescription": "The first key for preset one"
+        },
+        {
+          "keyName": "P1Key2",
+          "keyDescription": "The second key for preset one"
+        },
+        {
+          "keyName": "P1Key3",
+          "keyDescription": "The third key for preset one"
+        }
+      ]
+    },
+    {
+      "id": "customers",
+      "name": "Customers",
+      "businessContext": "Customer data import for managing customer information including contact details, company affiliations, account types, and registration information.",
+      "keyDefinitions": [
+        {
+          "keyName": "Customer ID",
+          "keyDescription": "Unique identifier for the customer (e.g., C-001, C-002)"
+        },
+        {
+          "keyName": "Full Name",
+          "keyDescription": "Complete name of the customer contact person"
+        },
+        {
+          "keyName": "Email",
+          "keyDescription": "Primary email address for customer communication"
+        },
+        {
+          "keyName": "Phone",
+          "keyDescription": "Contact phone number in various formats"
+        },
+        {
+          "keyName": "Company",
+          "keyDescription": "Name of the company or organization the customer represents"
+        },
+        {
+          "keyName": "Account Type",
+          "keyDescription": "Customer account tier (Basic, Standard, Premium, Enterprise)"
+        },
+        {
+          "keyName": "Status",
+          "keyDescription": "Current status of the customer account (Active, Inactive, Pending)"
+        },
+        {
+          "keyName": "Registration Date",
+          "keyDescription": "Date when the customer registered or was onboarded"
+        },
+        {
+          "keyName": "Location",
+          "keyDescription": "Primary business location or city of the customer"
+        }
+      ]
+    },
+    {
+      "id": "cash_receipts",
+      "name": "Cash Receipts",
+      "businessContext": "Financial transaction data import for cash receipt processing.",
+      "keyDefinitions": [
+        {
+          "keyName": "TransactionNumber",
+          "keyDescription": "Unique number for the transaction record"
+        },
+        {
+          "keyName": "DepositNumber",
+          "keyDescription": "Reference number for the associated bank deposit"
+        },
+        {
+          "keyName": "ReceiptNumber",
+          "keyDescription": "Sequential receipt number for the cash receipt"
+        },
+        {
+          "keyName": "BankCode",
+          "keyDescription": "Bank institution code (e.g., BONZ, BOA, BOT, BOJ)"
+        },
+        {
+          "keyName": "PayorType",
+          "keyDescription": "Category of the payor: Client, Vendor, Employee, or Misc"
+        },
+        {
+          "keyName": "PayorNumber",
+          "keyDescription": "Unique identifier for the payor entity"
+        },
+        {
+          "keyName": "Amount",
+          "keyDescription": "Transaction amount in decimal format (e.g., 123.45)"
+        },
+        {
+          "keyName": "DateModified",
+          "keyDescription": "Date when the transaction was last modified (various date formats supported)"
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "name": "Custom",
+      "businessContext": "",
+      "keyDefinitions": []
+    }
+  ]
+}

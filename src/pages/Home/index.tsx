@@ -10,7 +10,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import Tab from '@mui/material/Tab';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,6 +22,9 @@ import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
+import presetsData from '../../data/presets.json';
+import type { Preset } from '../../types/presets';
+
 export default function Home() {
   const [navTab, setNavTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -31,12 +33,24 @@ export default function Home() {
   const [keyDefinitions, setKeyDefinitions] = useState<
     Array<{ keyName: string; keyDescription: string }>
   >([]);
-  const [pageTitle, setPageTitle] = useState('Home');
+  const [pageTitle, setPageTitle] = useState('Custom Data Importer');
+  const [selectedPreset, setSelectedPreset] = useState('Custom');
   const [fileProcessingStatus, setFileProcessingStatus] = useState('');
   const filePollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const presets = presetsData.presets as Preset[];
+
   const handlePresetClick = (presetName: string) => {
     setPageTitle(`${presetName} Data Importer`);
+    setSelectedPreset(presetName);
+
+    // Find the preset data
+    const preset = presets.find((p) => p.name === presetName);
+
+    if (preset) {
+      setTextValue(preset.businessContext);
+      setKeyDefinitions(preset.keyDefinitions);
+    }
   };
 
   const handleAddKeyRow = () => {
@@ -134,34 +148,16 @@ export default function Home() {
                 <Typography variant="body1" sx={{ fontWeight: 600 }}>
                   Presets:
                 </Typography>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handlePresetClick('Preset 1')}
-                >
-                  Preset 1
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handlePresetClick('Preset 2')}
-                >
-                  Preset 2
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handlePresetClick('Preset 3')}
-                >
-                  Preset 3
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handlePresetClick('Custom')}
-                >
-                  Custom
-                </Button>
+                {presets.map((preset) => (
+                  <Button
+                    key={preset.id}
+                    variant={selectedPreset === preset.name ? 'contained' : 'outlined'}
+                    size="small"
+                    onClick={() => handlePresetClick(preset.name)}
+                  >
+                    {preset.name}
+                  </Button>
+                ))}
               </Box>
             </Box>
 
@@ -544,36 +540,6 @@ export default function Home() {
                 </Box>
               </Box>
             )}
-          </CardContent>
-        </Card>
-
-        {/* Resources Section */}
-        <Card>
-          <CardContent>
-            <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-              Helpful Resources
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link href="https://react.dev/" target="_blank" underline="hover">
-                React Documentation
-              </Link>
-              <Link href="https://mui.com/" target="_blank" underline="hover">
-                Material UI Components
-              </Link>
-              <Link href="https://vitejs.dev/" target="_blank" underline="hover">
-                Vite Build Tool
-              </Link>
-              <Link href="https://tanstack.com/query" target="_blank" underline="hover">
-                TanStack Query
-              </Link>
-              <Link
-                href="https://www.typescriptlang.org/"
-                target="_blank"
-                underline="hover"
-              >
-                TypeScript Guide
-              </Link>
-            </Box>
           </CardContent>
         </Card>
       </Box>
