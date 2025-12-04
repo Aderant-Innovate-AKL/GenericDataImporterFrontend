@@ -46,7 +46,14 @@ interface ImportDialogProps {
   context: ExtractionContext;
   apiConfig: ApiConfig;
   onClose: () => void;
-  onSuccess?: (result: ExtractionResult, mappings?: FieldMappings) => void;
+  onSuccess?: (
+    result: ExtractionResult,
+    mappings?: FieldMappings,
+    compoundOverrides?: Record<
+      number,
+      Record<string, Record<string, string | number | null>>
+    >,
+  ) => void;
 }
 
 export default function ImportDialog({
@@ -70,6 +77,10 @@ export default function ImportDialog({
   );
   const [columnMappings, setColumnMappings] = useState<Record<string, string | null>>({});
   const [modifiedColumns, setModifiedColumns] = useState<Set<string>>(new Set());
+  // Track compound extraction edits per row: rowIndex -> sourceColumn -> targetField -> value
+  const [compoundOverrides, setCompoundOverrides] = useState<
+    Record<number, Record<string, Record<string, string | number | null>>>
+  >({});
 
   /**
    * Start the extraction process with the API
@@ -99,6 +110,7 @@ export default function ImportDialog({
           });
           setColumnMappings(initial);
           setModifiedColumns(new Set()); // Reset modified columns
+          setCompoundOverrides({}); // Reset compound overrides
         }
         // Don't call onSuccess here - wait for user confirmation
       } catch (err: unknown) {
@@ -190,6 +202,7 @@ export default function ImportDialog({
       setSheetInfo(undefined);
       setColumnMappings({});
       setModifiedColumns(new Set());
+      setCompoundOverrides({});
     }
   }, [open]);
 
@@ -211,7 +224,7 @@ export default function ImportDialog({
         }
       });
 
-      onSuccess?.(result, fieldMappings);
+      onSuccess?.(result, fieldMappings, compoundOverrides);
       onClose();
     }
   };
@@ -221,6 +234,7 @@ export default function ImportDialog({
     setProgress(undefined);
     setColumnMappings({});
     setModifiedColumns(new Set());
+    setCompoundOverrides({});
     setDialogState('idle');
     onClose();
   };
@@ -231,6 +245,24 @@ export default function ImportDialog({
   ) => {
     setColumnMappings(newMappings);
     setModifiedColumns((prev) => new Set(prev).add(sourceColumn));
+  };
+
+  const handleCompoundOverride = (
+    rowIndex: number,
+    sourceColumn: string,
+    targetField: string,
+    newValue: string | number | null,
+  ) => {
+    setCompoundOverrides((prev) => ({
+      ...prev,
+      [rowIndex]: {
+        ...(prev[rowIndex] || {}),
+        [sourceColumn]: {
+          ...((prev[rowIndex] || {})[sourceColumn] || {}),
+          [targetField]: newValue,
+        },
+      },
+    }));
   };
 
   const renderContent = () => {
@@ -302,7 +334,9 @@ export default function ImportDialog({
             context={context}
             columnMappings={columnMappings}
             modifiedColumns={modifiedColumns}
+            compoundOverrides={compoundOverrides}
             onMappingChange={handleMappingChange}
+            onCompoundOverride={handleCompoundOverride}
             onConfirm={handleConfirm}
             onCancel={handleCancel}
           />

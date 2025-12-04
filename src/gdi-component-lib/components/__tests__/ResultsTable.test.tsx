@@ -49,7 +49,9 @@ describe('ResultsTable mapping', () => {
       B: 'fieldB',
     };
     const modifiedColumns = new Set<string>();
+    const compoundOverrides = {};
     const onMappingChange = vi.fn();
+    const onCompoundOverride = vi.fn();
 
     render(
       <ResultsTable
@@ -57,7 +59,9 @@ describe('ResultsTable mapping', () => {
         context={context}
         columnMappings={columnMappings}
         modifiedColumns={modifiedColumns}
+        compoundOverrides={compoundOverrides}
         onMappingChange={onMappingChange}
+        onCompoundOverride={onCompoundOverride}
       />,
     );
 

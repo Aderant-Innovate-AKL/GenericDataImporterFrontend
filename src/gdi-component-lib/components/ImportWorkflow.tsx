@@ -16,7 +16,14 @@ export interface ImportWorkflowProps {
   context: ExtractionContext;
   apiConfig?: ApiConfig;
   onClose: () => void;
-  onSuccess?: (result: ExtractionResult, mappings?: FieldMappings) => void;
+  onSuccess?: (
+    result: ExtractionResult,
+    mappings?: FieldMappings,
+    compoundOverrides?: Record<
+      number,
+      Record<string, Record<string, string | number | null>>
+    >,
+  ) => void;
   onProgress?: (p: OperationProgress) => void;
 }
 
@@ -49,8 +56,8 @@ export default function ImportWorkflow({
       context={context}
       apiConfig={apiConfig as ApiConfig}
       onClose={onClose}
-      onSuccess={(res, mappings) => {
-        onSuccess?.(res, mappings);
+      onSuccess={(res, mappings, compoundOverrides) => {
+        onSuccess?.(res, mappings, compoundOverrides);
         setFile(undefined);
       }}
       title={title}
