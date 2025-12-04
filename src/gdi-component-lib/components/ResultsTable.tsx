@@ -30,8 +30,7 @@ export default function ResultsTable({ result, context }: ResultsTableProps) {
   const fields = context.fields;
 
   // Extract all unique source column names from first row
-  const sampleRow: CategorizedRow = result.rows[0];
-  if (!sampleRow) {
+  if (!result?.rows || result.rows.length === 0) {
     return (
       <Box sx={{ p: 3, textAlign: 'center' }}>
         <Typography variant="body1" color="text.secondary">
@@ -40,6 +39,8 @@ export default function ResultsTable({ result, context }: ResultsTableProps) {
       </Box>
     );
   }
+
+  const sampleRow: CategorizedRow = result.rows[0];
 
   const directColumns = Object.keys(sampleRow.direct || {});
   const compoundColumns = Object.keys(sampleRow.compound || {});

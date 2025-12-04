@@ -7,7 +7,7 @@ export function generateTestIDs(
   const result: { path: string; testID: string }[] = [];
 
   routes.forEach((route) => {
-    if (route.path && route.Component) {
+    if (route.path && route.Component && route.path !== '*') {
       const fullPath = `${basePath}/${route.path}`.replace(/\/+/g, '/');
       const paths = fullPath.split('/');
       const testID = `${paths[paths.length - 1]}-page`;

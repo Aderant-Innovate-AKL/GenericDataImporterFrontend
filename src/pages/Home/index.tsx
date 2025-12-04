@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 
 import { PlatformPageTitleBar } from '@aderant/stridyn-foundation';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Tab from '@mui/material/Tab';
 import Table from '@mui/material/Table';
@@ -21,24 +21,39 @@ import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { ImportWorkflow, ResultsTable } from 'src/gdi-component-lib';
+import type { ExtractionContext, ExtractionResult } from 'src/gdi-component-lib';
 
 import presetsData from '../../data/presets.json';
 import type { Preset } from '../../types/presets';
 
 export default function Home() {
   const [navTab, setNavTab] = useState(0);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [textValue, setTextValue] = useState('');
-  const [tableData] = useState<Array<Record<string, string>>>([]);
   const [keyDefinitions, setKeyDefinitions] = useState<
     Array<{ keyName: string; keyDescription: string }>
   >([]);
   const [pageTitle, setPageTitle] = useState('Custom Data Importer');
   const [selectedPreset, setSelectedPreset] = useState('Custom');
-  const [fileProcessingStatus, setFileProcessingStatus] = useState('');
-  const filePollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [extractionResult, setExtractionResult] = useState<ExtractionResult | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const presets = presetsData.presets as Preset[];
+
+  // Convert keyDefinitions to ExtractionContext
+  const extractionContext = useMemo<ExtractionContext>(
+    () => ({
+      description: textValue || 'Extract data from file',
+      fields: keyDefinitions.map((kd) => ({
+        field: kd.keyName || 'unnamed_field',
+        description: kd.keyDescription || '',
+        required: false,
+      })),
+    }),
+    [textValue, keyDefinitions],
+  );
 
   const handlePresetClick = (presetName: string) => {
     setPageTitle(`${presetName} Data Importer`);
@@ -72,48 +87,45 @@ export default function Home() {
     setKeyDefinitions(updatedKeys);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log('File selected:', file.name);
       setSelectedFile(file);
-      // Start polling for file processing status
-      updateFileProcessingStatus();
+      setImportDialogOpen(true);
     }
   };
 
-  const updateFileProcessingStatus = () => {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString();
-    setFileProcessingStatus(`Processing...\nLast polled at ${timeString}`);
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
   };
 
-  // File processing polling effect
-  useEffect(() => {
-    if (selectedFile) {
-      // Update immediately when file is selected
-      updateFileProcessingStatus();
-
-      // Set up interval to update every 3 seconds
-      filePollingIntervalRef.current = setInterval(() => {
-        updateFileProcessingStatus();
-      }, 3000);
-    } else {
-      // Clear interval when no file is selected
-      if (filePollingIntervalRef.current) {
-        clearInterval(filePollingIntervalRef.current);
-        filePollingIntervalRef.current = null;
-      }
-      setFileProcessingStatus('');
+  const handleImportSuccess = (result: ExtractionResult) => {
+    setExtractionResult(result);
+    setImportDialogOpen(false);
+    setSelectedFile(null);
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
+  };
 
-    // Cleanup on unmount
-    return () => {
-      if (filePollingIntervalRef.current) {
-        clearInterval(filePollingIntervalRef.current);
-      }
-    };
-  }, [selectedFile]);
+  const handleImportClose = () => {
+    setImportDialogOpen(false);
+    setSelectedFile(null);
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleResultsConfirm = () => {
+    // Reset to allow another import
+    setExtractionResult(null);
+  };
+
+  const handleResultsCancel = () => {
+    setExtractionResult(null);
+  };
 
   return (
     <div data-testid="home-page">
@@ -370,180 +382,114 @@ export default function Home() {
 
             {/* Mock App Tab Content */}
             {navTab === 1 && (
-              <Box sx={{ display: 'flex', gap: 2, mb: 4, width: '100%' }}>
-                {/* Document Upload Box - Left Side */}
-                <Box
-                  sx={{
-                    flex: '0 0 25%',
-                    bgcolor: 'info.main',
-                    borderRadius: 2,
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 2,
-                    position: 'relative',
-                    height: 400,
-                  }}
-                >
-                  {/* Help Icon */}
-                  <Tooltip title="Upload a file to parse." arrow>
-                    <IconButton
-                      sx={{
-                        position: 'absolute',
-                        top: 4,
-                        right: 4,
-                        color: 'white',
-                      }}
-                      size="small"
-                    >
-                      <HelpOutlineIcon />
-                    </IconButton>
-                  </Tooltip>
-
-                  <Typography
-                    variant="h6"
-                    color="primary.contrastText"
-                    sx={{ textAlign: 'center' }}
-                  >
-                    Document Upload
-                  </Typography>
-
-                  <TextField
-                    value={selectedFile?.name || ''}
-                    placeholder="No file selected"
-                    variant="outlined"
-                    fullWidth
-                    disabled
-                    sx={{
-                      bgcolor: 'white',
-                      borderRadius: 1,
-                      '& .MuiInputBase-input.Mui-disabled': {
-                        WebkitTextFillColor: 'rgba(0, 0, 0, 0.87)',
-                      },
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    component="label"
-                    fullWidth
-                    sx={{
-                      bgcolor: 'white',
-                      color: 'primary.main',
-                      '&:hover': {
-                        bgcolor: 'grey.100',
-                      },
-                    }}
-                  >
-                    Choose File
-                    <input type="file" hidden onChange={handleFileChange} />
-                  </Button>
-
-                  {/* Spacer to push content to bottom */}
-                  <Box sx={{ flex: 1 }} />
-
-                  {selectedFile && (
-                    <>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flex: 1,
-                        }}
-                      >
-                        <CircularProgress size={80} style={{ color: 'white' }} />
-                      </Box>
-                      <Typography
-                        variant="body2"
-                        color="primary.contrastText"
-                        sx={{
-                          textAlign: 'center',
-                          whiteSpace: 'pre-line',
-                        }}
-                      >
-                        {fileProcessingStatus}
-                      </Typography>
-                    </>
-                  )}
-                </Box>
-
-                {/* Table Section - Right Side */}
-                <Box
-                  sx={{
-                    flex: '0 0 75%',
-                    bgcolor: 'info.main',
-                    borderRadius: 2,
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 2,
-                    position: 'relative',
-                  }}
-                >
-                  {/* Help Icon */}
-                  <Tooltip title="View the parsed data from the document." arrow>
-                    <IconButton
-                      sx={{
-                        position: 'absolute',
-                        top: 4,
-                        right: 4,
-                        color: 'white',
-                      }}
-                      size="small"
-                    >
-                      <HelpOutlineIcon />
-                    </IconButton>
-                  </Tooltip>
-
-                  <Typography
-                    variant="h6"
-                    color="primary.contrastText"
-                    sx={{ textAlign: 'center' }}
-                  >
-                    Parsed Data
-                  </Typography>
-
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                  mb: 4,
+                  width: '100%',
+                }}
+              >
+                {/* Import Workflow Section */}
+                {!extractionResult && (
                   <Box
                     sx={{
-                      flex: 1,
-                      borderRadius: 0,
-                      overflow: 'auto',
+                      bgcolor: 'info.main',
+                      borderRadius: 2,
+                      p: 4,
                       display: 'flex',
                       flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 2,
+                      minHeight: 400,
                     }}
                   >
-                    <TableContainer sx={{ flex: 1 }}>
-                      <Table size="small" sx={{ bgcolor: 'white', height: '100%' }}>
-                        <TableHead>
-                          <TableRow>
-                            {keyDefinitions.map((keyDef, index) => (
-                              <TableCell
-                                key={index}
-                                sx={{
-                                  fontWeight: 600,
-                                  verticalAlign: 'bottom',
-                                }}
-                              >
-                                {keyDef.keyName || `Column ${index + 1}`}
-                              </TableCell>
-                            ))}
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {tableData.map((row, rowIndex) => (
-                            <TableRow key={rowIndex} sx={{ height: 20 }}>
-                              {keyDefinitions.map((keyDef, colIndex) => (
-                                <TableCell key={colIndex}>
-                                  {row[keyDef.keyName] || ''}
-                                </TableCell>
-                              ))}
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
+                    <UploadFileIcon
+                      sx={{ fontSize: 80, color: 'primary.contrastText' }}
+                    />
+                    <Typography
+                      variant="h5"
+                      color="primary.contrastText"
+                      sx={{ textAlign: 'center' }}
+                    >
+                      Upload a File to Extract Data
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color="primary.contrastText"
+                      sx={{ textAlign: 'center', maxWidth: 600 }}
+                    >
+                      Click the button below to select a file (CSV or Excel). The AI will
+                      extract the fields defined in the Config tab based on your business
+                      context.
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      startIcon={<UploadFileIcon />}
+                      onClick={handleImportClick}
+                      disabled={keyDefinitions.length === 0}
+                      sx={{
+                        bgcolor: 'white',
+                        color: 'primary.main',
+                        px: 4,
+                        py: 1.5,
+                        '&:hover': {
+                          bgcolor: 'grey.100',
+                        },
+                        '&:disabled': {
+                          bgcolor: 'grey.300',
+                        },
+                      }}
+                    >
+                      Select File
+                    </Button>
+                    {/* Hidden file input */}
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".csv,.xlsx,.xls"
+                      style={{ display: 'none' }}
+                      onChange={handleFileSelect}
+                    />
+                    {keyDefinitions.length === 0 && (
+                      <Typography
+                        variant="caption"
+                        color="error.light"
+                        sx={{ textAlign: 'center' }}
+                      >
+                        Please add at least one field definition in the Config tab
+                      </Typography>
+                    )}
                   </Box>
-                </Box>
+                )}
+
+                {/* Results Display */}
+                {extractionResult && (
+                  <Box>
+                    <ResultsTable
+                      result={extractionResult}
+                      context={extractionContext}
+                      onConfirm={handleResultsConfirm}
+                      onCancel={handleResultsCancel}
+                    />
+                  </Box>
+                )}
+
+                {/* Import Workflow Dialog */}
+                <ImportWorkflow
+                  open={importDialogOpen}
+                  file={selectedFile || undefined}
+                  context={extractionContext}
+                  apiConfig={{
+                    baseUrl: import.meta.env.UI_API_BASE_URL || 'http://localhost:8000',
+                  }}
+                  title={`${pageTitle} - Import File`}
+                  onClose={handleImportClose}
+                  onSuccess={handleImportSuccess}
+                />
               </Box>
             )}
           </CardContent>

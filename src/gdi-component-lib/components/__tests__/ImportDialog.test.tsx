@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
 import { ImportService } from '../../services/importService';
@@ -17,7 +17,7 @@ const context: ExtractionContext = {
 const apiConfig = { baseUrl: '' };
 
 describe('ImportDialog flow (mock)', () => {
-  it('starts import and shows results', async () => {
+  it('starts import automatically when file is provided and shows results', async () => {
     const file = new File(['x'], 'x.txt');
     const spy = vi.spyOn(ImportService.prototype, 'extractWithPolling');
     spy.mockResolvedValueOnce({
@@ -59,9 +59,7 @@ describe('ImportDialog flow (mock)', () => {
       />,
     );
 
-    const startBtn = screen.getByRole('button', { name: /start import/i });
-    fireEvent.click(startBtn);
-
+    // Import should start automatically when file is provided
     await waitFor(() => expect(onSuccess).toHaveBeenCalled());
   });
 });

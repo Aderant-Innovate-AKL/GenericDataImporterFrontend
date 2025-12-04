@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type {
   ExtractionContext,
@@ -35,6 +35,12 @@ export default function ImportWorkflow({
 }: ImportWorkflowProps) {
   const [file, setFile] = useState<File | undefined>(initialFile);
 
+  useEffect(() => {
+    if (initialFile) {
+      setFile(initialFile);
+    }
+  }, [initialFile]);
+
   return (
     <ImportDialog
       open={open}
@@ -44,7 +50,6 @@ export default function ImportWorkflow({
       onClose={onClose}
       onSuccess={(res) => {
         onSuccess?.(res);
-        // Optionally reset file after success
         setFile(undefined);
       }}
       title={title}
