@@ -18,6 +18,10 @@ const routes = [
         path: '/home',
         Component: Home,
       },
+      {
+        path: '*',
+        Component: NotFoundPage,
+      },
     ],
   },
 ];
