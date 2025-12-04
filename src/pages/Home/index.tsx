@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 import { PlatformPageTitleBar } from '@aderant/stridyn-foundation';
 import AddIcon from '@mui/icons-material/Add';
@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Tab from '@mui/material/Tab';
 import Table from '@mui/material/Table';
@@ -23,6 +22,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import presetsData from '../../data/presets.json';
+import FileDropzone from '../../gdi-component-lib/components/FileDropzone';
 import type { Preset } from '../../types/presets';
 
 export default function Home() {
@@ -35,8 +35,6 @@ export default function Home() {
   >([]);
   const [pageTitle, setPageTitle] = useState('Custom Data Importer');
   const [selectedPreset, setSelectedPreset] = useState('Custom');
-  const [fileProcessingStatus, setFileProcessingStatus] = useState('');
-  const filePollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const presets = presetsData.presets as Preset[];
 
@@ -72,48 +70,15 @@ export default function Home() {
     setKeyDefinitions(updatedKeys);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log('File selected:', file.name);
-      setSelectedFile(file);
-      // Start polling for file processing status
-      updateFileProcessingStatus();
-    }
+  const handleFileSelected = (file: File) => {
+    console.log('File selected:', file.name);
+    setSelectedFile(file);
   };
 
-  const updateFileProcessingStatus = () => {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString();
-    setFileProcessingStatus(`Processing...\nLast polled at ${timeString}`);
+  const handleFileError = (error: { code: string; message: string }) => {
+    console.error('File validation error:', error);
+    // You could show an error message to the user here
   };
-
-  // File processing polling effect
-  useEffect(() => {
-    if (selectedFile) {
-      // Update immediately when file is selected
-      updateFileProcessingStatus();
-
-      // Set up interval to update every 3 seconds
-      filePollingIntervalRef.current = setInterval(() => {
-        updateFileProcessingStatus();
-      }, 3000);
-    } else {
-      // Clear interval when no file is selected
-      if (filePollingIntervalRef.current) {
-        clearInterval(filePollingIntervalRef.current);
-        filePollingIntervalRef.current = null;
-      }
-      setFileProcessingStatus('');
-    }
-
-    // Cleanup on unmount
-    return () => {
-      if (filePollingIntervalRef.current) {
-        clearInterval(filePollingIntervalRef.current);
-      }
-    };
-  }, [selectedFile]);
 
   return (
     <div data-testid="home-page">
@@ -408,62 +373,28 @@ export default function Home() {
                     Document Upload
                   </Typography>
 
-                  <TextField
-                    value={selectedFile?.name || ''}
-                    placeholder="No file selected"
-                    variant="outlined"
-                    fullWidth
-                    disabled
-                    sx={{
-                      bgcolor: 'white',
-                      borderRadius: 1,
-                      '& .MuiInputBase-input.Mui-disabled': {
-                        WebkitTextFillColor: 'rgba(0, 0, 0, 0.87)',
-                      },
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    component="label"
-                    fullWidth
-                    sx={{
-                      bgcolor: 'white',
-                      color: 'primary.main',
-                      '&:hover': {
-                        bgcolor: 'grey.100',
-                      },
-                    }}
-                  >
-                    Choose File
-                    <input type="file" hidden onChange={handleFileChange} />
-                  </Button>
-
-                  {/* Spacer to push content to bottom */}
-                  <Box sx={{ flex: 1 }} />
-
-                  {selectedFile && (
-                    <>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          flex: 1,
-                        }}
-                      >
-                        <CircularProgress size={80} style={{ color: 'white' }} />
-                      </Box>
-                      <Typography
-                        variant="body2"
-                        color="primary.contrastText"
-                        sx={{
-                          textAlign: 'center',
-                          whiteSpace: 'pre-line',
-                        }}
-                      >
-                        {fileProcessingStatus}
-                      </Typography>
-                    </>
+                  {selectedFile ? (
+                    <TextField
+                      value={selectedFile.name}
+                      placeholder="No file selected"
+                      variant="outlined"
+                      fullWidth
+                      disabled
+                      sx={{
+                        bgcolor: 'white',
+                        borderRadius: 1,
+                        '& .MuiInputBase-input.Mui-disabled': {
+                          WebkitTextFillColor: 'rgba(0, 0, 0, 0.87)',
+                        },
+                      }}
+                    />
+                  ) : (
+                    <FileDropzone
+                      onFileSelected={handleFileSelected}
+                      onError={handleFileError}
+                      maxFileSize={10 * 1024 * 1024}
+                      acceptsSpreadsheets={true}
+                    />
                   )}
                 </Box>
 
