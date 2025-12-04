@@ -1,25 +1,6 @@
 {
   "presets": [
     {
-      "id": "preset1",
-      "name": "Preset 1",
-      "businessContext": "This is the Preset 1 business context information. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et sagittis mauris, imperdiet consequat libero. Aenean consectetur id arcu quis semper. Nunc a urna nibh.",
-      "keyDefinitions": [
-        {
-          "keyName": "P1Key1",
-          "keyDescription": "The first key for preset one"
-        },
-        {
-          "keyName": "P1Key2",
-          "keyDescription": "The second key for preset one"
-        },
-        {
-          "keyName": "P1Key3",
-          "keyDescription": "The third key for preset one"
-        }
-      ]
-    },
-    {
       "id": "customers",
       "name": "Customers",
       "businessContext": "Customer data import for managing customer information including contact details, company affiliations, account types, and registration information.",
