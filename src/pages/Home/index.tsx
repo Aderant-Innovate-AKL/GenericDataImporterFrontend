@@ -2,6 +2,7 @@ import { useState, useMemo, useRef } from 'react';
 
 import { PlatformPageTitleBar } from '@aderant/stridyn-foundation';
 import AddIcon from '@mui/icons-material/Add';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -10,6 +11,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
+import LinearProgress from '@mui/material/LinearProgress';
 import Tab from '@mui/material/Tab';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -44,6 +46,10 @@ export default function Home() {
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [finalOutput, setFinalOutput] = useState<FinalOutput | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadedCount, setUploadedCount] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedRows, setUploadedRows] = useState<Set<number>>(new Set());
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const presets = presetsData.presets as Preset[];
@@ -129,6 +135,54 @@ export default function Home() {
 
   const handleClearResults = () => {
     setFinalOutput(null);
+    setUploadedCount(0);
+    setUploadProgress(0);
+    setIsUploading(false);
+    setUploadedRows(new Set());
+  };
+
+  const handleUploadClick = async () => {
+    if (!finalOutput || finalOutput.items.length === 0 || isUploading) {
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadedCount(0);
+    setUploadProgress(0);
+    setUploadedRows(new Set());
+
+    const totalRows = finalOutput.items.length;
+
+    for (let i = 0; i < totalRows; i++) {
+      // Random duration between 0.1 and 0.6 seconds
+      const duration = Math.random() * 500 + 100; // 100ms to 600ms
+      const startTime = Date.now();
+
+      // Animate progress from 0 to 100
+      const animateProgress = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / duration) * 100, 100);
+        setUploadProgress(progress);
+
+        if (progress < 100) {
+          requestAnimationFrame(animateProgress);
+        } else {
+          // Row completed
+          setUploadedCount(i + 1);
+          setUploadedRows((prev) => new Set(prev).add(i));
+          setUploadProgress(0);
+        }
+      };
+
+      // Start animation
+      animateProgress();
+
+      // Wait for the duration
+      await new Promise((resolve) => setTimeout(resolve, duration));
+    }
+
+    setIsUploading(false);
+    setUploadProgress(0);
   };
 
   return (
@@ -157,6 +211,7 @@ export default function Home() {
               <Tabs value={navTab} onChange={(_, val) => setNavTab(val)}>
                 <Tab label="Config" />
                 <Tab label="Mock App" />
+                <Tab label="Upload To Stridyn" />
               </Tabs>
 
               {/* Presets Section */}
@@ -538,6 +593,154 @@ export default function Home() {
                   onClose={handleImportClose}
                   onSuccess={handleImportSuccess}
                 />
+              </Box>
+            )}
+
+            {/* Upload To Stridyn Tab Content */}
+            {navTab === 2 && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                  mb: 4,
+                  width: '100%',
+                }}
+              >
+                <Box
+                  sx={{
+                    bgcolor: 'info.main',
+                    borderRadius: 2,
+                    p: 4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    minHeight: 400,
+                  }}
+                >
+                  {/* Upload Button and Progress Bar */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      width: '100%',
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      onClick={handleUploadClick}
+                      disabled={
+                        !finalOutput || finalOutput.items.length === 0 || isUploading
+                      }
+                      sx={{
+                        bgcolor: 'white',
+                        color: 'primary.main',
+                        '&:hover': {
+                          bgcolor: 'grey.100',
+                        },
+                        '&:disabled': {
+                          bgcolor: 'grey.300',
+                          color: 'grey.600',
+                        },
+                      }}
+                    >
+                      Upload
+                    </Button>
+                    <Typography
+                      variant="body1"
+                      color="primary.contrastText"
+                      sx={{ fontWeight: 600, minWidth: 'fit-content' }}
+                    >
+                      {uploadedCount}/{finalOutput?.items.length || 0}
+                    </Typography>
+                    <LinearProgress
+                      variant="determinate"
+                      value={uploadProgress}
+                      sx={{
+                        flex: 1,
+                        height: 8,
+                        borderRadius: 1,
+                      }}
+                    />
+                  </Box>
+
+                  {/* Table Section */}
+                  {finalOutput && finalOutput.items.length > 0 ? (
+                    <TableContainer
+                      sx={{
+                        maxHeight: 400,
+                        border: 1,
+                        borderColor: 'divider',
+                        borderRadius: 1,
+                        bgcolor: 'white',
+                      }}
+                    >
+                      <Table stickyHeader size="small">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell
+                              sx={{ fontWeight: 'bold', bgcolor: 'primary.lighter' }}
+                            >
+                              Upload Status
+                            </TableCell>
+                            {Object.keys(finalOutput.items[0]).map((field) => (
+                              <TableCell
+                                key={field}
+                                sx={{ fontWeight: 'bold', bgcolor: 'primary.lighter' }}
+                              >
+                                {field}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {finalOutput.items.map((item, idx) => (
+                            <TableRow key={idx} hover>
+                              <TableCell>
+                                {uploadedRows.has(idx) ? (
+                                  <CheckCircleIcon sx={{ color: 'success.main' }} />
+                                ) : (
+                                  'Pending'
+                                )}
+                              </TableCell>
+                              {Object.values(item).map((value, colIdx) => (
+                                <TableCell key={colIdx}>{String(value ?? '')}</TableCell>
+                              ))}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  ) : (
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 2,
+                        flex: 1,
+                      }}
+                    >
+                      <Typography
+                        variant="h5"
+                        color="primary.contrastText"
+                        sx={{ textAlign: 'center' }}
+                      >
+                        Upload To Stridyn
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="primary.contrastText"
+                        sx={{ textAlign: 'center', maxWidth: 600 }}
+                      >
+                        Import and parse data in the Mock App tab first to see the upload
+                        table.
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
               </Box>
             )}
           </CardContent>
