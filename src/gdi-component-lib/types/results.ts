@@ -11,6 +11,7 @@ export interface DirectMapping {
   sourceColumn: string;
   targetField: string;
   value: string | number | null;
+  confidence?: number; // 1-10 from backend
 }
 
 // Compound extraction: one extraction from a compound column
@@ -45,21 +46,33 @@ export interface CategorizedRow {
 
 // Extraction metadata from completed response
 export interface ExtractionMetadata {
-  totalRows: number;
-  directMappings: number;
-  compoundColumns: number;
-  unmappedColumns: number;
-  averageConfidence?: number; // optional, for compound extractions
+  sourceFile?: string;
+  rowsProcessed?: number;
+  extractionSummary?: {
+    directMappings: number;
+    compoundExtractions: number;
+    unmappedColumns: string[];
+    unmappedFields: string[];
+    llmCalls?: number;
+    processingTimeMs?: number;
+    averageConfidence?: number;
+  };
+  // Legacy fields for backward compatibility
+  totalRows?: number;
+  directMappings?: number;
+  compoundColumns?: number;
+  unmappedColumns?: number;
+  averageConfidence?: number;
 }
 
 // Complete extraction result from GET /operations/{id} when status = 'completed'
 export interface ExtractionResult {
-  source: {
+  source?: {
     filename: string;
     sheetName?: string;
     totalRows: number;
   };
-  rows: CategorizedRow[];
+  data: CategorizedRow[]; // Backend returns 'data' not 'rows'
   metadata: ExtractionMetadata;
 }
 

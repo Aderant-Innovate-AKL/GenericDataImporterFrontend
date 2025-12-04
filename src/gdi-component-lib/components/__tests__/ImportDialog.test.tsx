@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
 import { ImportService } from '../../services/importService';
@@ -17,7 +17,7 @@ const context: ExtractionContext = {
 const apiConfig = { baseUrl: '' };
 
 describe('ImportDialog flow (mock)', () => {
-  it('starts import automatically when file is provided and shows results', async () => {
+  it('starts import automatically when file is provided and shows results with confirmation', async () => {
     const file = new File(['x'], 'x.txt');
     const spy = vi.spyOn(ImportService.prototype, 'extractWithPolling');
     spy.mockResolvedValueOnce({
@@ -26,7 +26,7 @@ describe('ImportDialog flow (mock)', () => {
         sheetName: 'MockSheet',
         totalRows: 1,
       },
-      rows: [
+      data: [
         {
           direct: {
             firstName: {
@@ -59,7 +59,18 @@ describe('ImportDialog flow (mock)', () => {
       />,
     );
 
-    // Import should start automatically when file is provided
+    // Wait for results to be displayed
+    await waitFor(() =>
+      expect(screen.getByText(/Extraction Summary/i)).toBeInTheDocument(),
+    );
+
+    // Confirm button should be visible
+    const confirmBtn = await screen.findByRole('button', { name: /confirm & import/i });
+
+    // Click confirm button
+    fireEvent.click(confirmBtn);
+
+    // Now onSuccess should be called
     await waitFor(() => expect(onSuccess).toHaveBeenCalled());
   });
 });

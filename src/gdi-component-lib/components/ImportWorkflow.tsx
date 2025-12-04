@@ -5,6 +5,7 @@ import type {
   ApiConfig,
   ExtractionResult,
   OperationProgress,
+  FieldMappings,
 } from '../types';
 import ImportDialog from './ImportDialog';
 
@@ -15,7 +16,7 @@ export interface ImportWorkflowProps {
   context: ExtractionContext;
   apiConfig?: ApiConfig;
   onClose: () => void;
-  onSuccess?: (result: ExtractionResult) => void;
+  onSuccess?: (result: ExtractionResult, mappings?: FieldMappings) => void;
   onProgress?: (p: OperationProgress) => void;
 }
 
@@ -48,8 +49,8 @@ export default function ImportWorkflow({
       context={context}
       apiConfig={apiConfig as ApiConfig}
       onClose={onClose}
-      onSuccess={(res) => {
-        onSuccess?.(res);
+      onSuccess={(res, mappings) => {
+        onSuccess?.(res, mappings);
         setFile(undefined);
       }}
       title={title}

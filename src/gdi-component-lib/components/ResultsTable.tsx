@@ -8,7 +8,12 @@ import {
   Typography,
 } from '@mui/material';
 
-import type { ExtractionResult, ExtractionContext, CategorizedRow } from '../types';
+import type {
+  ExtractionResult,
+  ExtractionContext,
+  CategorizedRow,
+  FieldMappings,
+} from '../types';
 import ColumnHeader from './ColumnHeader';
 import CompoundCell from './CompoundCell';
 import MappingSelector from './MappingSelector';
@@ -16,7 +21,13 @@ import MappingSelector from './MappingSelector';
 interface ResultsTableProps {
   result: ExtractionResult;
   context: ExtractionContext;
-  onConfirm?: (finalMappings?: unknown, compoundOverrides?: unknown) => void;
+  columnMappings: Record<string, string | null>;
+  modifiedColumns: Set<string>;
+  onMappingChange: (
+    mappings: Record<string, string | null>,
+    sourceColumn: string,
+  ) => void;
+  onConfirm?: (finalMappings: FieldMappings) => void;
   onCancel?: () => void;
 }
 
@@ -26,11 +37,48 @@ interface ResultsTableProps {
  * - Compound extractions (LLM-extracted values from compound columns)
  * - Unmapped columns (columns not mapped to any target field)
  */
-export default function ResultsTable({ result, context }: ResultsTableProps) {
+export default function ResultsTable({
+  result,
+  context,
+  columnMappings,
+  modifiedColumns,
+  onMappingChange,
+}: ResultsTableProps) {
   const fields = context.fields;
 
-  // Extract all unique source column names from first row
-  if (!result?.rows || result.rows.length === 0) {
+  // Get initial row data for setting up state (must be before any hooks)
+  const sampleRow: CategorizedRow | undefined = result?.data?.[0];
+  const directColumns = Object.keys(sampleRow?.direct || {});
+  const compoundColumns = Object.keys(sampleRow?.compound || {});
+  const unmappedColumns = Object.keys(sampleRow?.unmapped || {});
+  const hasAnyColumns =
+    directColumns.length > 0 || compoundColumns.length > 0 || unmappedColumns.length > 0;
+
+  const handleMappingChange = (sourceColumn: string, targetField: string | null) => {
+    onMappingChange(
+      {
+        ...columnMappings,
+        [sourceColumn]: targetField,
+      },
+      sourceColumn,
+    );
+  };
+
+  // Helper to get confidence color based on score
+  const getConfidenceColor = (confidence?: number): string | undefined => {
+    if (confidence === undefined) return undefined;
+    if (confidence >= 8) return 'success.light'; // High confidence: green
+    if (confidence >= 5) return 'warning.light'; // Medium confidence: yellow/orange
+    return 'error.light'; // Low confidence: red
+  };
+
+  // Get fields that are already mapped (to disable in other selectors)
+  const mappedFields = new Set(
+    Object.values(columnMappings).filter((v): v is string => v !== null),
+  );
+
+  // NOW we can do early returns after all hooks are set up
+  if (!result?.data || result.data.length === 0) {
     return (
       <Box sx={{ p: 3, textAlign: 'center' }}>
         <Typography variant="body1" color="text.secondary">
@@ -40,11 +88,18 @@ export default function ResultsTable({ result, context }: ResultsTableProps) {
     );
   }
 
-  const sampleRow: CategorizedRow = result.rows[0];
-
-  const directColumns = Object.keys(sampleRow.direct || {});
-  const compoundColumns = Object.keys(sampleRow.compound || {});
-  const unmappedColumns = Object.keys(sampleRow.unmapped || {});
+  if (!hasAnyColumns) {
+    return (
+      <Box sx={{ p: 3, textAlign: 'center' }}>
+        <Typography variant="body1" color="error">
+          No columns found in extraction result
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          The backend returned {result.data.length} row(s) but no column data.
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ overflowX: 'auto', p: 2 }}>
@@ -54,9 +109,22 @@ export default function ResultsTable({ result, context }: ResultsTableProps) {
           Extraction Summary
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Total rows: {result.metadata.totalRows} | Direct:{' '}
-          {result.metadata.directMappings} | Compound: {result.metadata.compoundColumns} |
-          Unmapped: {result.metadata.unmappedColumns}
+          Total rows:{' '}
+          {result.metadata.rowsProcessed ||
+            result.metadata.totalRows ||
+            result.data.length}{' '}
+          | Direct:{' '}
+          {result.metadata.extractionSummary?.directMappings ||
+            result.metadata.directMappings ||
+            0}{' '}
+          | Compound:{' '}
+          {result.metadata.extractionSummary?.compoundExtractions ||
+            result.metadata.compoundColumns ||
+            0}{' '}
+          | Unmapped:{' '}
+          {result.metadata.extractionSummary?.unmappedColumns?.length ||
+            result.metadata.unmappedColumns ||
+            0}
         </Typography>
       </Box>
 
@@ -64,19 +132,36 @@ export default function ResultsTable({ result, context }: ResultsTableProps) {
         <TableHead>
           <TableRow>
             {/* Direct column headers */}
-            {directColumns.map((col) => (
-              <TableCell
-                key={`direct-${col}`}
-                sx={{ bgcolor: 'primary.lighter', fontWeight: 'bold' }}
-              >
-                <ColumnHeader title={col} />
-                <MappingSelector
-                  value={sampleRow.direct[col]?.targetField || null}
-                  fields={fields}
-                  onChange={() => {}}
-                />
-              </TableCell>
-            ))}
+            {directColumns.map((col) => {
+              const mapping = sampleRow?.direct[col];
+              const isModified = modifiedColumns.has(col);
+              const confidenceColor = !isModified
+                ? getConfidenceColor(mapping?.confidence)
+                : undefined;
+
+              return (
+                <TableCell
+                  key={`direct-${col}`}
+                  sx={{
+                    bgcolor: confidenceColor || 'primary.lighter',
+                    fontWeight: 'bold',
+                    transition: 'background-color 0.3s ease',
+                  }}
+                >
+                  <ColumnHeader title={col} />
+                  <MappingSelector
+                    value={columnMappings[col] || null}
+                    fields={fields}
+                    disabledFieldIds={Array.from(mappedFields).filter(
+                      (f) => f !== columnMappings[col],
+                    )}
+                    onChange={(newTargetField) =>
+                      handleMappingChange(col, newTargetField)
+                    }
+                  />
+                </TableCell>
+              );
+            })}
 
             {/* Compound column headers */}
             {compoundColumns.map((col) => (
@@ -98,16 +183,22 @@ export default function ResultsTable({ result, context }: ResultsTableProps) {
                 sx={{ bgcolor: 'action.hover', fontWeight: 'bold' }}
               >
                 <ColumnHeader title={col} />
-                <Typography variant="caption" color="text.secondary">
-                  (Unmapped)
-                </Typography>
+                <MappingSelector
+                  value={columnMappings[col] || null}
+                  fields={fields}
+                  disabledFieldIds={Array.from(mappedFields).filter(
+                    (f) => f !== columnMappings[col],
+                  )}
+                  onChange={(newTargetField) => handleMappingChange(col, newTargetField)}
+                  label="Map to Field (Optional)"
+                />
               </TableCell>
             ))}
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {result.rows.map((row: CategorizedRow, idx: number) => (
+          {result.data.map((row: CategorizedRow, idx: number) => (
             <TableRow key={idx} hover>
               {/* Direct cells */}
               {directColumns.map((col) => {

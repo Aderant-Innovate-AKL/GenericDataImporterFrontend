@@ -1,0 +1,2331 @@
+{
+  "operationId": "op_12de488ab9e4",
+  "status": "completed",
+  "createdAt": "2025-12-04T00:20:10.497Z",
+  "startedAt": "2025-12-04T00:20:10.498Z",
+  "completedAt": "2025-12-04T00:20:43.607Z",
+  "progress": {
+    "phase": "mapping",
+    "currentStep": "complete",
+    "rowsProcessed": 50,
+    "totalRows": 50,
+    "percentComplete": 100
+  },
+  "result": {
+    "data": [
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "1",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "3",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "1",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8134",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "123.45",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-10-12",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "3",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "6",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "2",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "123",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "213.78",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-10-12",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "4",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "23",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "3",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "124",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "1239.65",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-10-14",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "6",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "23",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "4",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4573",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "1.90",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-03-23",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "9",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "23",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "5",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "3468",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "23.11",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2019-02-29",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "10",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "17",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "6",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "94",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "213454.43",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2015-03-03",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "11",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "17",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "7",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "43",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "10.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2018-09-23",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "16",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "40",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "8",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "432",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "974.20",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-02-01",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "19",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "41",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "9",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "124",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "123.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-10-12",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "23",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "42",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "10",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Misc",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "9001",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "583.58",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2010-10-10",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "24",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "45",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "11",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8135",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "456.78",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-11-15",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "25",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "46",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "12",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "125",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "789.23",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-12-18",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "27",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "48",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "13",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4574",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "2500.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-04-05",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "28",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "49",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "14",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8136",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "1567.89",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-06-22",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "30",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "50",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "15",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "3469",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "345.67",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-07-08",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "31",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "51",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "16",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "95",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "12345.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-08-14",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "33",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "53",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "17",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Misc",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "9002",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "78.90",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-09-19",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "35",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "55",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "18",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4575",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "3200.50",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-10-25",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "36",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "56",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "19",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "126",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "890.45",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-11-03",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "38",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "58",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "20",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8137",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "4567.12",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-01-12",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "40",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "60",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "21",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "433",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "234.56",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-02-07",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "41",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "61",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "22",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "96",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "8901.23",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-03-16",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "43",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "63",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "23",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4576",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "1850.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-04-21",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "44",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "64",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "24",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Misc",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "9003",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "567.89",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-05-28",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "46",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "66",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "25",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "127",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "1234.56",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-06-04",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "48",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "68",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "26",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8138",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "3456.78",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-07-11",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "49",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "69",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "27",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "3470",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "678.90",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-08-18",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "51",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "71",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "28",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4577",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "2900.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-09-24",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "52",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "72",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "29",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "97",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "15678.90",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-10-02",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "54",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "74",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "30",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "128",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "345.12",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-11-09",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "56",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "76",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "31",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Misc",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "9004",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "890.23",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-12-15",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "57",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "77",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "32",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8139",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "2345.67",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-01-22",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "59",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "79",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "33",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "434",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "456.78",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-02-28",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "60",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "80",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "34",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4578",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "3100.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-03-06",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "62",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "82",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "35",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "98",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "23456.78",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-04-13",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "64",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "84",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "36",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "129",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "567.89",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-05-19",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "65",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "85",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "37",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8140",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "6789.01",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-06-26",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "67",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "87",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "38",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Misc",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "9005",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "123.45",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-07-03",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "69",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "89",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "39",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "3471",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "789.12",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-08-10",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "70",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "90",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "40",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4579",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "2750.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-09-16",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "72",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "92",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "41",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "99",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "18901.23",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-10-23",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "73",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "93",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "42",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "130",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "234.56",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-11-30",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "75",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "95",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "43",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8141",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "4567.89",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-12-07",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "77",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "97",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "44",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "435",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "890.12",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-01-14",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "78",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "98",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "45",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4580",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "3300.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-02-20",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "80",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "100",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "46",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Misc",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "9006",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "456.78",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-03-28",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "81",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "101",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "47",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BONZ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "100",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "34567.89",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2024-04-05",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "83",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "103",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "48",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOA",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Vendor",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "131",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "678.90",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2023-05-12",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "85",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "105",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "49",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOT",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Client",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "8142",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "5678.90",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2022-06-18",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      },
+      {
+        "direct": {
+          "transaction_id": {
+            "value": "86",
+            "targetField": "Transaction Number",
+            "confidence": 10
+          },
+          "deposit_id": {
+            "value": "106",
+            "targetField": "Deposit Number",
+            "confidence": 10
+          },
+          "receipt_id": {
+            "value": "50",
+            "targetField": "Receipt Number",
+            "confidence": 10
+          },
+          "bank_id": {
+            "value": "BOJ",
+            "targetField": "Bank Code",
+            "confidence": 10
+          },
+          "payor_type": {
+            "value": "Employee",
+            "targetField": "Payor Type",
+            "confidence": 10
+          },
+          "payor_id": {
+            "value": "4581",
+            "targetField": "Payor Number",
+            "confidence": 10
+          },
+          "amount": {
+            "value": "2850.00",
+            "targetField": "Amount",
+            "confidence": 10
+          },
+          "date_modified": {
+            "value": "2025-07-25",
+            "targetField": "Date Modified",
+            "confidence": 10
+          }
+        },
+        "compound": {},
+        "unmapped": {}
+      }
+    ],
+    "metadata": {
+      "sourceFile": "cash_receipts_backup.sql",
+      "rowsProcessed": 50,
+      "extractionSummary": {
+        "directMappings": 8,
+        "compoundExtractions": 0,
+        "unmappedColumns": [],
+        "unmappedFields": [],
+        "llmCalls": 1,
+        "processingTimeMs": 4975,
+        "averageConfidence": 10
+      }
+    }
+  }
+}

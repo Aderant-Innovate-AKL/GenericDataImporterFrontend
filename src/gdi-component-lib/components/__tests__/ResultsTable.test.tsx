@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 import type { ExtractionResult, ExtractionContext } from '../../types';
 import ResultsTable from '../ResultsTable';
@@ -12,7 +12,7 @@ describe('ResultsTable mapping', () => {
         sheetName: 'Sheet1',
         totalRows: 2,
       },
-      rows: [
+      data: [
         {
           direct: {
             A: { sourceColumn: 'A', targetField: 'fieldA', value: 'a1' },
@@ -44,7 +44,22 @@ describe('ResultsTable mapping', () => {
         { field: 'fieldB', description: 'Field B' },
       ],
     };
-    render(<ResultsTable result={result} context={context} />);
+    const columnMappings = {
+      A: 'fieldA',
+      B: 'fieldB',
+    };
+    const modifiedColumns = new Set<string>();
+    const onMappingChange = vi.fn();
+
+    render(
+      <ResultsTable
+        result={result}
+        context={context}
+        columnMappings={columnMappings}
+        modifiedColumns={modifiedColumns}
+        onMappingChange={onMappingChange}
+      />,
+    );
 
     expect(screen.getByText('a1')).toBeInTheDocument();
     expect(screen.getByText('b2')).toBeInTheDocument();

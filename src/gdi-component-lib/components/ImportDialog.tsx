@@ -16,6 +16,7 @@ import type {
   ApiConfig,
   ExtractionResult,
   OperationStatusResponse,
+  FieldMappings,
 } from '../types';
 import ErrorDialog from './ErrorDialog';
 import FileDropzone from './FileDropzone';
@@ -45,7 +46,7 @@ interface ImportDialogProps {
   context: ExtractionContext;
   apiConfig: ApiConfig;
   onClose: () => void;
-  onSuccess?: (result: ExtractionResult) => void;
+  onSuccess?: (result: ExtractionResult, mappings?: FieldMappings) => void;
 }
 
 export default function ImportDialog({
@@ -67,6 +68,8 @@ export default function ImportDialog({
   const [sheetInfo, setSheetInfo] = useState<SheetInspectionResult | undefined>(
     undefined,
   );
+  const [columnMappings, setColumnMappings] = useState<Record<string, string | null>>({});
+  const [modifiedColumns, setModifiedColumns] = useState<Set<string>>(new Set());
 
   /**
    * Start the extraction process with the API
@@ -83,13 +86,27 @@ export default function ImportDialog({
         });
         setResult(res);
         setDialogState('results');
-        onSuccess?.(res);
+
+        // Initialize column mappings from the result
+        if (res.data && res.data.length > 0) {
+          const sampleRow = res.data[0];
+          const initial: Record<string, string | null> = {};
+          Object.keys(sampleRow.direct || {}).forEach((col) => {
+            initial[col] = sampleRow.direct[col]?.targetField || null;
+          });
+          Object.keys(sampleRow.unmapped || {}).forEach((col) => {
+            initial[col] = null;
+          });
+          setColumnMappings(initial);
+          setModifiedColumns(new Set()); // Reset modified columns
+        }
+        // Don't call onSuccess here - wait for user confirmation
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : 'Import failed');
         setDialogState('error');
       }
     },
-    [apiConfig, context, onSuccess],
+    [apiConfig, context],
   );
 
   /**
@@ -171,8 +188,50 @@ export default function ImportDialog({
       setError(undefined);
       setResult(undefined);
       setSheetInfo(undefined);
+      setColumnMappings({});
+      setModifiedColumns(new Set());
     }
   }, [open]);
+
+  const handleConfirm = () => {
+    if (result) {
+      // Build FieldMappings from columnMappings
+      const fieldMappings: FieldMappings = {
+        direct: {},
+        compound: {},
+      };
+
+      Object.entries(columnMappings).forEach(([sourceCol, targetField]) => {
+        if (targetField) {
+          fieldMappings.direct[sourceCol] = {
+            sourceColumn: sourceCol,
+            targetField,
+            isUserModified: true,
+          };
+        }
+      });
+
+      onSuccess?.(result, fieldMappings);
+      onClose();
+    }
+  };
+
+  const handleCancel = () => {
+    setResult(undefined);
+    setProgress(undefined);
+    setColumnMappings({});
+    setModifiedColumns(new Set());
+    setDialogState('idle');
+    onClose();
+  };
+
+  const handleMappingChange = (
+    newMappings: Record<string, string | null>,
+    sourceColumn: string,
+  ) => {
+    setColumnMappings(newMappings);
+    setModifiedColumns((prev) => new Set(prev).add(sourceColumn));
+  };
 
   const renderContent = () => {
     switch (dialogState) {
@@ -241,8 +300,11 @@ export default function ImportDialog({
           <ResultsTable
             result={result}
             context={context}
-            onConfirm={() => onClose()}
-            onCancel={onClose}
+            columnMappings={columnMappings}
+            modifiedColumns={modifiedColumns}
+            onMappingChange={handleMappingChange}
+            onConfirm={handleConfirm}
+            onCancel={handleCancel}
           />
         ) : null;
 
@@ -269,7 +331,17 @@ export default function ImportDialog({
         {renderContent()}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        {result && (
+          <>
+            <Button onClick={handleCancel} color="error">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirm} variant="contained" color="primary">
+              Confirm & Import
+            </Button>
+          </>
+        )}
+        {!result && <Button onClick={onClose}>Close</Button>}
       </DialogActions>
     </Dialog>
   );
