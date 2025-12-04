@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
@@ -9,6 +9,7 @@ import type {
   OperationStatusResponse,
 } from '../types';
 import ErrorDialog from './ErrorDialog';
+import FileDropzone from './FileDropzone';
 import LoadingOverlay from './LoadingOverlay';
 import ResultsTable from './ResultsTable';
 import SheetSelector from './SheetSelector';
@@ -26,13 +27,14 @@ interface ImportDialogProps {
 
 export default function ImportDialog({
   open,
-  file,
+  file: initialFile,
   title = 'Import Data',
   context,
   apiConfig,
   onClose,
   onSuccess,
 }: ImportDialogProps) {
+  const [file, setFile] = useState<File | undefined>(initialFile);
   const [progress, setProgress] = useState<
     OperationStatusResponse<ExtractionResult> | undefined
   >(undefined);
@@ -40,25 +42,38 @@ export default function ImportDialog({
   const [result, setResult] = useState<ExtractionResult | undefined>(undefined);
   const [selectingSheet, setSelectingSheet] = useState<boolean>(false);
 
-  const start = async () => {
-    if (!file) return;
-    setError(undefined);
-    const service = new ImportService(apiConfig);
-    try {
-      const res = await service.extractWithPolling(file, context, {
-        onProgress: setProgress,
-      });
-      setResult(res);
-      onSuccess?.(res);
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Import failed');
+  // Auto-start import when file is provided
+  useEffect(() => {
+    if (initialFile && open && !result && !progress) {
+      setFile(initialFile);
+      // Start import automatically
+      const autoStart = async () => {
+        const service = new ImportService(apiConfig);
+        try {
+          const res = await service.extractWithPolling(initialFile, context, {
+            onProgress: setProgress,
+          });
+          setResult(res);
+          onSuccess?.(res);
+        } catch (err: unknown) {
+          setError(err instanceof Error ? err.message : 'Import failed');
+        }
+      };
+      autoStart();
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialFile, open]);
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent sx={{ position: 'relative' }}>
+      <DialogContent sx={{ position: 'relative', minHeight: 300 }}>
+        {!file && !progress && !result && (
+          <FileDropzone
+            onFileSelected={(f) => setFile(f)}
+            onError={(err) => setError(err.message)}
+          />
+        )}
         {progress && !result && (
           <LoadingOverlay
             message={
@@ -81,11 +96,6 @@ export default function ImportDialog({
         )}
       </DialogContent>
       <DialogActions>
-        {!result && (
-          <Button onClick={start} variant="contained" disabled={!file}>
-            Start Import
-          </Button>
-        )}
         <Button onClick={onClose}>Close</Button>
       </DialogActions>
     </Dialog>
