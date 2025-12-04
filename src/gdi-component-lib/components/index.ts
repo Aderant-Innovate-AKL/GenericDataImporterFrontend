@@ -8,4 +8,5 @@ export { default as ErrorDialog } from './ErrorDialog';
 export { default as ResultsTable } from './ResultsTable';
 export { default as MappingSelector } from './MappingSelector';
 export { default as CompoundCell } from './CompoundCell';
+export { default as CompoundExtractionEditor } from './CompoundExtractionEditor';
 export { default as ColumnHeader } from './ColumnHeader';

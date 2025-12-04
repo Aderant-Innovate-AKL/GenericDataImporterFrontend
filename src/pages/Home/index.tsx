@@ -111,9 +111,16 @@ export default function Home() {
     fileInputRef.current?.click();
   };
 
-  const handleImportSuccess = (result: ExtractionResult, mappings?: FieldMappings) => {
+  const handleImportSuccess = (
+    result: ExtractionResult,
+    mappings?: FieldMappings,
+    compoundOverrides?: Record<
+      number,
+      Record<string, Record<string, string | number | null>>
+    >,
+  ) => {
     if (mappings) {
-      const output = buildFinalOutput(result, mappings);
+      const output = buildFinalOutput(result, mappings, compoundOverrides);
       setFinalOutput(output);
     }
     setImportDialogOpen(false);
