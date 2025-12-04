@@ -15,4 +15,7 @@ export default defineConfig({
     },
   },
   envPrefix: 'UI_',
+  optimizeDeps: {
+    include: ['xlsx'],
+  },
 });
