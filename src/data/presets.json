@@ -25,39 +25,39 @@
       "businessContext": "Customer data import for managing customer information including contact details, company affiliations, account types, and registration information.",
       "keyDefinitions": [
         {
-          "keyName": "Customer ID",
+          "keyName": "customerId",
           "keyDescription": "Unique identifier for the customer (e.g., C-001, C-002)"
         },
         {
-          "keyName": "Full Name",
+          "keyName": "fullName",
           "keyDescription": "Complete name of the customer contact person"
         },
         {
-          "keyName": "Email",
+          "keyName": "email",
           "keyDescription": "Primary email address for customer communication"
         },
         {
-          "keyName": "Phone",
+          "keyName": "phone",
           "keyDescription": "Contact phone number in various formats"
         },
         {
-          "keyName": "Company",
+          "keyName": "company",
           "keyDescription": "Name of the company or organization the customer represents"
         },
         {
-          "keyName": "Account Type",
+          "keyName": "accountType",
           "keyDescription": "Customer account tier (Basic, Standard, Premium, Enterprise)"
         },
         {
-          "keyName": "Status",
+          "keyName": "status",
           "keyDescription": "Current status of the customer account (Active, Inactive, Pending)"
         },
         {
-          "keyName": "Registration Date",
+          "keyName": "registrationDate",
           "keyDescription": "Date when the customer registered or was onboarded"
         },
         {
-          "keyName": "Location",
+          "keyName": "location",
           "keyDescription": "Primary business location or city of the customer"
         }
       ]
@@ -68,35 +68,35 @@
       "businessContext": "Financial transaction data import for cash receipt processing.",
       "keyDefinitions": [
         {
-          "keyName": "Transaction Number",
+          "keyName": "transactionNumber",
           "keyDescription": "Unique number for the transaction record"
         },
         {
-          "keyName": "Deposit Number",
+          "keyName": "depositNumber",
           "keyDescription": "Reference number for the associated bank deposit"
         },
         {
-          "keyName": "Receipt Number",
+          "keyName": "receiptNumber",
           "keyDescription": "Sequential receipt number for the cash receipt"
         },
         {
-          "keyName": "Bank Code",
+          "keyName": "bankCode",
           "keyDescription": "Bank institution code (e.g., BONZ, BOA, BOT, BOJ)"
         },
         {
-          "keyName": "Payor Type",
+          "keyName": "payorType",
           "keyDescription": "Category of the payor: Client, Vendor, Employee, or Misc"
         },
         {
-          "keyName": "Payor Number",
+          "keyName": "payorNumber",
           "keyDescription": "Unique identifier for the payor entity"
         },
         {
-          "keyName": "Amount",
+          "keyName": "amount",
           "keyDescription": "Transaction amount in decimal format (e.g., 123.45)"
         },
         {
-          "keyName": "Date Modified",
+          "keyName": "dateModified",
           "keyDescription": "Date when the transaction was last modified (various date formats supported)"
         }
       ]
@@ -107,27 +107,27 @@
       "businessContext": "Bank deposit data import for tracking deposit transactions across multiple banks, including source codes, employee assignments, and deposit totals.",
       "keyDefinitions": [
         {
-          "keyName": "Session",
+          "keyName": "session",
           "keyDescription": "Sequential unique identifier for each deposit transaction"
         },
         {
-          "keyName": "Source Code",
+          "keyName": "sourceCode",
           "keyDescription": "Origin of the deposit: AR (Accounts Receivable), MA (Manual), or TR (Transfer)"
         },
         {
-          "keyName": "Session Date",
+          "keyName": "sessionDate",
           "keyDescription": "Date when the deposit was created (supports DD/MM/YYYY format)"
         },
         {
-          "keyName": "Total",
+          "keyName": "total",
           "keyDescription": "Total deposit amount in decimal format (e.g., 123.45, 26342.12)"
         },
         {
-          "keyName": "Bank Code",
+          "keyName": "bankCode",
           "keyDescription": "Banking institution identifier (e.g., BOT, BONZ, BOA, BOJ)"
         },
         {
-          "keyName": "Employee Code",
+          "keyName": "employeeCode",
           "keyDescription": "Employee identifier who processed or is responsible for the deposit"
         }
       ]
