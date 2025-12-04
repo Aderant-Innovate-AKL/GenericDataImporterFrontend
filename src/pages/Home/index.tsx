@@ -668,6 +668,9 @@ export default function Home() {
                         flex: 1,
                         height: 8,
                         borderRadius: 1,
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: 'success.main',
+                        },
                       }}
                     />
                   </Box>
