@@ -177,9 +177,12 @@ export default function ResultsTable({
                 <TableCell
                   key={`direct-${col}`}
                   sx={{
-                    bgcolor: confidenceColor || 'primary.lighter',
+                    bgcolor: 'primary.lighter',
                     fontWeight: 'bold',
-                    transition: 'background-color 0.3s ease',
+                    transition: 'all 0.3s ease',
+                    border: confidenceColor ? `3px solid` : '1px solid',
+                    borderColor: confidenceColor || 'divider',
+                    position: 'relative',
                   }}
                 >
                   <ColumnHeader title={col} />
@@ -216,9 +219,12 @@ export default function ResultsTable({
                 <TableCell
                   key={`compound-${sourceColumn}-${targetField}`}
                   sx={{
-                    bgcolor: confidenceColor || 'warning.lighter',
+                    bgcolor: 'warning.lighter',
                     fontWeight: 'bold',
-                    transition: 'background-color 0.3s ease',
+                    transition: 'all 0.3s ease',
+                    border: confidenceColor ? `3px solid` : '1px solid',
+                    borderColor: confidenceColor || 'divider',
+                    position: 'relative',
                   }}
                 >
                   <ColumnHeader title={`${sourceColumn}`} />
@@ -240,7 +246,12 @@ export default function ResultsTable({
             {unmappedColumns.map((col) => (
               <TableCell
                 key={`unmapped-${col}`}
-                sx={{ bgcolor: 'action.hover', fontWeight: 'bold' }}
+                sx={{
+                  bgcolor: 'action.hover',
+                  fontWeight: 'bold',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                }}
               >
                 <ColumnHeader title={col} />
                 <MappingSelector
@@ -258,28 +269,13 @@ export default function ResultsTable({
         <TableBody>
           {result.data.map((row: CategorizedRow, idx: number) => (
             <TableRow key={idx} hover>
-              {/* Direct cells - show value from the mapped source column */}
+              {/* Direct cells - show value from the source column */}
               {directColumns.map((col) => {
-                // Get the target field this column is mapped to
-                const targetField = columnMappings[col];
-
-                // Find which source column has data for this target field
-                let displayValue: string | number | null = '';
-
-                if (targetField) {
-                  // Look through all direct columns to find one that maps to this target field
-                  const sourceCol = Object.keys(row.direct).find(
-                    (key) => columnMappings[key] === targetField,
-                  );
-
-                  if (sourceCol && row.direct[sourceCol]) {
-                    displayValue = row.direct[sourceCol].value;
-                  }
-                }
+                const mapping = row.direct[col];
 
                 return (
                   <TableCell key={`direct-${col}`}>
-                    <Typography variant="body2">{displayValue ?? ''}</Typography>
+                    <Typography variant="body2">{mapping?.value ?? ''}</Typography>
                   </TableCell>
                 );
               })}
