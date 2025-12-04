@@ -1,0 +1,38 @@
+# DEPOSIT LEDGER NOTATION v2.3
+# Non-Standard Data format - Hierarchical Bracket Notation
+# Syntax: [DEPOSIT_ID]{property:value|property:value|...}
+
+[DEP-001]{src:AR|created:2/02/2025|amt:$123.45|bank:BOT|emp:E-012}
+[DEP-002]{src:MA|created:3/03/2025|amt:$1.95|bank:BONZ|emp:E-101}
+[DEP-003]{src:MA|created:23/06/2019|amt:$26342.12|bank:BOA|emp:E-023}
+[DEP-004]{src:AR|created:19/12/2023|amt:$548.55|bank:BOA|emp:E-056}
+[DEP-005]{src:AR|created:25/01/2015|amt:$0.15|bank:BOJ|emp:E-032}
+[DEP-006]{src:TR|created:15/03/2024|amt:$2567.89|bank:BOT|emp:E-045}
+[DEP-007]{src:AR|created:8/07/2024|amt:$89.32|bank:BONZ|emp:E-078}
+[DEP-008]{src:MA|created:12/11/2023|amt:$15432.67|bank:BOA|emp:E-012}
+[DEP-009]{src:TR|created:5/09/2024|amt:$945.21|bank:BOJ|emp:E-101}
+[DEP-010]{src:AR|created:22/04/2024|amt:$3201.54|bank:BOT|emp:E-056}
+[DEP-011]{src:MA|created:18/08/2023|amt:$67.90|bank:BONZ|emp:E-023}
+[DEP-012]{src:TR|created:30/01/2025|amt:$8934.45|bank:BOA|emp:E-032}
+[DEP-013]{src:AR|created:14/06/2024|amt:$456.78|bank:BOJ|emp:E-045}
+[DEP-014]{src:MA|created:27/10/2024|amt:$12890.33|bank:BOT|emp:E-078}
+[DEP-015]{src:TR|created:3/12/2024|amt:$234.56|bank:BONZ|emp:E-012}
+[DEP-016]{src:AR|created:9/05/2023|amt:$5678.90|bank:BOA|emp:E-101}
+[DEP-017]{src:MA|created:21/02/2024|amt:$1023.45|bank:BOJ|emp:E-056}
+[DEP-018]{src:TR|created:16/09/2024|amt:$789.12|bank:BOT|emp:E-023}
+[DEP-019]{src:AR|created:7/11/2024|amt:$34567.89|bank:BONZ|emp:E-032}
+[DEP-020]{src:MA|created:25/07/2024|amt:$145.67|bank:BOA|emp:E-045}
+
+## METADATA ##
+RecordCount: 20
+FormatVersion: 2.3
+GeneratedDate: 2025-12-04
+Schema: DepositNumber->src|DateCreated->created|Total->amt|BankCode->bank|EmployeeCode->emp
+Encoding: UTF-8
+
+## LEGEND ##
+src = Source Code (AR=Accounts Receivable, MA=Manual, TR=Transfer)
+created = Date Created (DD/MM/YYYY)
+amt = Total Amount (USD with $ prefix)
+bank = Bank Code (BOT, BONZ, BOA, BOJ)
+emp = Employee Code (E- prefix + zero-padded 3-digit)
