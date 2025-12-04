@@ -3,6 +3,7 @@ import { useState, useMemo, useRef } from 'react';
 import { PlatformPageTitleBar } from '@aderant/stridyn-foundation';
 import AddIcon from '@mui/icons-material/Add';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -711,7 +712,7 @@ export default function Home() {
                                 {uploadedRows.has(idx) ? (
                                   <CheckCircleIcon sx={{ color: 'success.main' }} />
                                 ) : (
-                                  'Pending'
+                                  <CircleOutlinedIcon sx={{ color: 'primary.main' }} />
                                 )}
                               </TableCell>
                               {Object.values(item).map((value, colIdx) => (
