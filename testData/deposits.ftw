@@ -31,8 +31,8 @@ Schema: DepositNumber->src|DateCreated->created|Total->amt|BankCode->bank|Employ
 Encoding: UTF-8
 
 ## LEGEND ##
-src = Source Code (AR=Accounts Receivable, MA=Manual, TR=Transfer)
+src = Source Id (AR=Accounts Receivable, MA=Manual, TR=Transfer)
 created = Date Created (DD/MM/YYYY)
 amt = Total Amount (USD with $ prefix)
-bank = Bank Code (BOT, BONZ, BOA, BOJ)
-emp = Employee Code (E- prefix + zero-padded 3-digit)
+bank = Bank Id (BOT, BONZ, BOA, BOJ)
+emp = Employee Id (E- prefix + zero-padded 3-digit)

@@ -1,4 +1,4 @@
-﻿Deposit Number,Source Code,Date Created,Total,Bank Code,Employee Code
+﻿DepositId,SourceId,Date Created,Total,BankId,EmployeeId
 1,AR,2/02/2025,123.45,BOT,12
 2,MA,3/03/2025,1.95,BONZ,101
 3,MA,23/06/2019,26342.12,BOA,23

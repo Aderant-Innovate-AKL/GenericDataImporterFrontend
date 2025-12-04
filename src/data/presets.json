@@ -102,6 +102,37 @@
       ]
     },
     {
+      "id": "deposits",
+      "name": "Deposits",
+      "businessContext": "Bank deposit data import for tracking deposit transactions across multiple banks, including source codes, employee assignments, and deposit totals.",
+      "keyDefinitions": [
+        {
+          "keyName": "Session",
+          "keyDescription": "Sequential unique identifier for each deposit transaction"
+        },
+        {
+          "keyName": "Source Code",
+          "keyDescription": "Origin of the deposit: AR (Accounts Receivable), MA (Manual), or TR (Transfer)"
+        },
+        {
+          "keyName": "Session Date",
+          "keyDescription": "Date when the deposit was created (supports DD/MM/YYYY format)"
+        },
+        {
+          "keyName": "Total",
+          "keyDescription": "Total deposit amount in decimal format (e.g., 123.45, 26342.12)"
+        },
+        {
+          "keyName": "Bank Code",
+          "keyDescription": "Banking institution identifier (e.g., BOT, BONZ, BOA, BOJ)"
+        },
+        {
+          "keyName": "Employee Code",
+          "keyDescription": "Employee identifier who processed or is responsible for the deposit"
+        }
+      ]
+    },
+    {
       "id": "custom",
       "name": "Custom",
       "businessContext": "",
