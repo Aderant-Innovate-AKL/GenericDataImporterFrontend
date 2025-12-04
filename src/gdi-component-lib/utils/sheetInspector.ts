@@ -5,14 +5,32 @@ export interface SheetMetadata {
   name: string;
   hidden?: boolean;
   rowEstimate?: number;
+  columnCount?: number;
 }
 
 export interface SheetInspectionResult {
   sheets: SheetMetadata[];
+  /** Sheets that are not hidden */
+  visibleSheets: SheetMetadata[];
+  /** Whether this file has multiple visible sheets that require user selection */
+  requiresSheetSelection: boolean;
 }
 
 export interface SheetMetadataReader {
   read(file: File): Promise<SheetInspectionResult>;
+}
+
+/** Check if file is a spreadsheet format (Excel, ODS, etc.) */
+export function isSpreadsheetFile(file: File): boolean {
+  const spreadsheetExts = ['.xlsx', '.xls', '.xlsm', '.xlsb', '.ods'];
+  const name = file.name.toLowerCase();
+  return spreadsheetExts.some((ext) => name.endsWith(ext));
+}
+
+/** Check if file is a CSV (single sheet, no inspection needed) */
+export function isCsvFile(file: File): boolean {
+  const name = file.name.toLowerCase();
+  return name.endsWith('.csv') || name.endsWith('.tsv');
 }
 
 export async function defaultSheetReader(file: File): Promise<SheetInspectionResult> {
@@ -26,15 +44,21 @@ export async function defaultSheetReader(file: File): Promise<SheetInspectionRes
       const range =
         sheet && sheet['!ref'] ? xlsx.utils.decode_range(sheet['!ref']) : undefined;
       const rowEstimate = range ? range.e.r + 1 : undefined;
+      const columnCount = range ? range.e.c + 1 : undefined;
       const hidden = !!wb.Workbook?.Sheets?.find(
-        (s: { name: string; Hidden?: boolean }) => s.name === name,
+        (s: { name: string; Hidden?: number }) => s.name === name,
       )?.Hidden;
-      return { name, hidden, rowEstimate };
+      return { name, hidden, rowEstimate, columnCount };
     });
-    return { sheets };
+    const visibleSheets = sheets.filter((s) => !s.hidden);
+    return {
+      sheets,
+      visibleSheets,
+      requiresSheetSelection: visibleSheets.length > 1,
+    };
   } catch {
-    // Fallback: no metadata available
-    return { sheets: [] };
+    // Fallback: no metadata available, assume single sheet
+    return { sheets: [], visibleSheets: [], requiresSheetSelection: false };
   }
 }
 

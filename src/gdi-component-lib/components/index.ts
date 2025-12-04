@@ -2,6 +2,7 @@ export { default as FileDropzone } from './FileDropzone';
 export { default as ImportDialog } from './ImportDialog';
 export { default as ImportWorkflow } from './ImportWorkflow';
 export { default as SheetSelector } from './SheetSelector';
+export type { SheetSelectorProps } from './SheetSelector';
 export { default as LoadingOverlay } from './LoadingOverlay';
 export { default as ErrorDialog } from './ErrorDialog';
 export { default as ResultsTable } from './ResultsTable';
