@@ -9,7 +9,7 @@ const mockResult: ExtractionResult = {
     sheetName: 'Sheet1',
     totalRows: 2,
   },
-  rows: [
+  data: [
     {
       direct: {
         'First Name': {
@@ -76,7 +76,7 @@ describe('organize utilities', () => {
   it('handles empty result', () => {
     const emptyResult: ExtractionResult = {
       source: { filename: 'empty.csv', totalRows: 0 },
-      rows: [],
+      data: [],
       metadata: {
         totalRows: 0,
         directMappings: 0,

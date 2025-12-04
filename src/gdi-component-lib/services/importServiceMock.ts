@@ -79,7 +79,7 @@ export async function mockExtractWithPolling(
       sheetName: 'Sheet1',
       totalRows: 3,
     },
-    rows: [
+    data: [
       {
         direct: {
           'First Name': {

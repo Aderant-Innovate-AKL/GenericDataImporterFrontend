@@ -16,11 +16,11 @@ export function buildInitialMappings(
   const direct: Record<string, DirectMappingEntry> = {};
 
   // Extract source columns from first row (categorized structure)
-  if (result.rows.length === 0) {
+  if (result.data.length === 0) {
     return { direct: {}, compound: {} };
   }
 
-  const firstRow = result.rows[0];
+  const firstRow = result.data[0];
   const sourceColumns = [
     ...Object.keys(firstRow.direct || {}),
     ...Object.keys(firstRow.compound || {}),

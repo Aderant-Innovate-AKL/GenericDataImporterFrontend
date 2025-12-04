@@ -8,11 +8,11 @@ export function organizeColumns(result: ExtractionResult): {
   compoundColumns: string[];
   unmappedColumns: string[];
 } {
-  if (result.rows.length === 0) {
+  if (result.data.length === 0) {
     return { directColumns: [], compoundColumns: [], unmappedColumns: [] };
   }
 
-  const firstRow: CategorizedRow = result.rows[0];
+  const firstRow: CategorizedRow = result.data[0];
 
   return {
     directColumns: Object.keys(firstRow.direct || {}).sort(),
@@ -22,9 +22,9 @@ export function organizeColumns(result: ExtractionResult): {
 }
 
 export function getAllSourceColumns(result: ExtractionResult): string[] {
-  if (result.rows.length === 0) return [];
+  if (result.data.length === 0) return [];
 
-  const firstRow: CategorizedRow = result.rows[0];
+  const firstRow: CategorizedRow = result.data[0];
   const allColumns = [
     ...Object.keys(firstRow.direct || {}),
     ...Object.keys(firstRow.compound || {}),

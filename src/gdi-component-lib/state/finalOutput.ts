@@ -18,7 +18,7 @@ export function buildFinalOutput(
 ): FinalOutput {
   const items: FinalOutputItem[] = [];
 
-  for (const row of result.rows) {
+  for (const row of result.data) {
     const item: FinalOutputItem = {};
 
     // Apply direct mappings

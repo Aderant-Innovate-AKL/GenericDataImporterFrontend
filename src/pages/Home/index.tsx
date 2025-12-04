@@ -21,8 +21,14 @@ import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { ImportWorkflow, ResultsTable } from 'src/gdi-component-lib';
-import type { ExtractionContext, ExtractionResult } from 'src/gdi-component-lib';
+import { ImportWorkflow } from 'src/gdi-component-lib';
+import type {
+  ExtractionContext,
+  ExtractionResult,
+  FieldMappings,
+  FinalOutput,
+} from 'src/gdi-component-lib';
+import { buildFinalOutput } from 'src/gdi-component-lib/state/finalOutput';
 
 import presetsData from '../../data/presets.json';
 import type { Preset } from '../../types/presets';
@@ -37,7 +43,7 @@ export default function Home() {
   const [selectedPreset, setSelectedPreset] = useState('Custom');
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [extractionResult, setExtractionResult] = useState<ExtractionResult | null>(null);
+  const [finalOutput, setFinalOutput] = useState<FinalOutput | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const presets = presetsData.presets as Preset[];
@@ -99,8 +105,11 @@ export default function Home() {
     fileInputRef.current?.click();
   };
 
-  const handleImportSuccess = (result: ExtractionResult) => {
-    setExtractionResult(result);
+  const handleImportSuccess = (result: ExtractionResult, mappings?: FieldMappings) => {
+    if (mappings) {
+      const output = buildFinalOutput(result, mappings);
+      setFinalOutput(output);
+    }
     setImportDialogOpen(false);
     setSelectedFile(null);
     // Reset file input
@@ -118,13 +127,8 @@ export default function Home() {
     }
   };
 
-  const handleResultsConfirm = () => {
-    // Reset to allow another import
-    setExtractionResult(null);
-  };
-
-  const handleResultsCancel = () => {
-    setExtractionResult(null);
+  const handleClearResults = () => {
+    setFinalOutput(null);
   };
 
   return (
@@ -392,7 +396,7 @@ export default function Home() {
                 }}
               >
                 {/* Import Workflow Section */}
-                {!extractionResult && (
+                {!finalOutput && (
                   <Box
                     sx={{
                       bgcolor: 'info.main',
@@ -450,7 +454,9 @@ export default function Home() {
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept=".csv,.xlsx,.xls"
+                      // accept=".csv,.xlsx,.xls"
+                      // accept all files
+                      accept="*"
                       style={{ display: 'none' }}
                       onChange={handleFileSelect}
                     />
@@ -467,14 +473,56 @@ export default function Home() {
                 )}
 
                 {/* Results Display */}
-                {extractionResult && (
+                {finalOutput && (
                   <Box>
-                    <ResultsTable
-                      result={extractionResult}
-                      context={extractionContext}
-                      onConfirm={handleResultsConfirm}
-                      onCancel={handleResultsCancel}
-                    />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        mb: 2,
+                      }}
+                    >
+                      <Typography variant="h6">
+                        Import Results ({finalOutput.items.length} rows)
+                      </Typography>
+                      <Button variant="outlined" onClick={handleClearResults}>
+                        Clear & Import Another
+                      </Button>
+                    </Box>
+                    <TableContainer
+                      sx={{
+                        maxHeight: 600,
+                        border: 1,
+                        borderColor: 'divider',
+                        borderRadius: 1,
+                      }}
+                    >
+                      <Table stickyHeader size="small">
+                        <TableHead>
+                          <TableRow>
+                            {finalOutput.items.length > 0 &&
+                              Object.keys(finalOutput.items[0]).map((field) => (
+                                <TableCell
+                                  key={field}
+                                  sx={{ fontWeight: 'bold', bgcolor: 'primary.lighter' }}
+                                >
+                                  {field}
+                                </TableCell>
+                              ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {finalOutput.items.map((item, idx) => (
+                            <TableRow key={idx} hover>
+                              {Object.values(item).map((value, colIdx) => (
+                                <TableCell key={colIdx}>{String(value ?? '')}</TableCell>
+                              ))}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </Box>
                 )}
 
